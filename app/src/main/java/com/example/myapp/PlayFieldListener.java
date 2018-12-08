@@ -1,5 +1,6 @@
 package com.example.myapp;
 
+import android.annotation.SuppressLint;
 import android.graphics.Point;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,11 +21,13 @@ public class PlayFieldListener implements View.OnTouchListener {
         this.playField = playField;
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
 
-            Point checkPoint = reCoordinate(new Point((int) motionEvent.getX(), (int) motionEvent.getY()));
+        Point checkPoint = reCoordinate(new Point((int) motionEvent.getX(), (int) motionEvent.getY()));
 
+        if(Logic.countChangeOrientation % 2 == 0) {
             if (!checkInGrid(checkPoint)) {
 
                 switch (motionEvent.getAction()) {
@@ -36,7 +39,6 @@ public class PlayFieldListener implements View.OnTouchListener {
                         break;
 
                     case ACTION_UP:
-                        System.out.println(startX + " " + startY);
                         Point point = reCoordinate(new Point((int) PlayFieldListener.startX, (int) PlayFieldListener.startY));
                         if (point != null) {
                             setFieldCell(point);
@@ -47,10 +49,11 @@ public class PlayFieldListener implements View.OnTouchListener {
                 }
             }
 
-
-
+        }
         return false;
     }
+
+
 
     static boolean checkInGrid(Point point) {
         for (int i = 0; i != PlayField3x3.cells.size(); i++) {

@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -158,42 +159,42 @@ public class PlayField3x3 extends View {
                 case 11:
                     canvas.drawLine(163, 163, 817, 163, paint);
                     Logic.winX++;
-                    cO.setText(String.valueOf(Logic.winO));
+                    cX.setText(String.valueOf(Logic.winX));
                     break;
                 case 12:
                     canvas.drawLine(163, 523, 817, 523, paint);
                     Logic.winX++;
-                    cO.setText(String.valueOf(Logic.winO));
+                    cX.setText(String.valueOf(Logic.winX));
                     break;
                 case 13:
                     canvas.drawLine(163, 861, 817, 861, paint);
                     Logic.winX++;
-                    cO.setText(String.valueOf(Logic.winO));
+                    cX.setText(String.valueOf(Logic.winX));
                     break;
                 case 14:
                     canvas.drawLine(163, 163, 163, 861, paint);
                     Logic.winX++;
-                    cO.setText(String.valueOf(Logic.winO));
+                    cX.setText(String.valueOf(Logic.winX));
                     break;
                 case 15:
                     canvas.drawLine(490, 163, 490, 861, paint);
                     Logic.winX++;
-                    cO.setText(String.valueOf(Logic.winO));
+                    cX.setText(String.valueOf(Logic.winX));
                     break;
                 case 16:
                     canvas.drawLine(817, 163, 817, 861, paint);
                     Logic.winX++;
-                    cO.setText(String.valueOf(Logic.winO));
+                    cX.setText(String.valueOf(Logic.winX));
                     break;
                 case 17:
                     canvas.drawLine(163, 163, 817, 861, paint);
                     Logic.winX++;
-                    cO.setText(String.valueOf(Logic.winO));
+                    cX.setText(String.valueOf(Logic.winX));
                     break;
                 case 18:
                     canvas.drawLine(817, 163, 163, 861, paint);
                     Logic.winX++;
-                    cO.setText(String.valueOf(Logic.winO));
+                    cX.setText(String.valueOf(Logic.winX));
                     break;
             }
 

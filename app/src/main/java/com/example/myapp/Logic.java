@@ -8,7 +8,9 @@ class Logic {
 
     static int winX = 0;
     static int winO = 0;
-    int[] arrWin = new int[1];
+    static int[] arrWin = new int[1];
+
+    static int countChangeOrientation = 0;
 
 
 
