@@ -302,7 +302,7 @@ public class PlayFieldListener implements View.OnTouchListener {
         }
         if (point.x == 72 && point.y == 222){
             p.x = 163;
-            p.y = 253;
+            p.y = 523;
             return p;
         }
         if (point.x == 227 && point.y == 222){

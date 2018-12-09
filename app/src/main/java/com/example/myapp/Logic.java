@@ -9,8 +9,10 @@ class Logic {
     static int winX = 0;
     static int winO = 0;
     static int[] arrWin = new int[1];
-
+    static int flagTeamWin = 0; // 1-x, 2-o
     static int countChangeOrientation = 0;
+
+    //static boolean isLandscapeFirstPage = false;
 
 
 
@@ -68,7 +70,7 @@ class Logic {
                     Point(490, 163)) == 1 && PlayFieldListener.checkInGridKek(new
                     Point(817, 163)) == 1) {
                 arrWin[0] = 1;
-
+                flagTeamWin = 2;
                 return true;
             }
 
@@ -80,7 +82,7 @@ class Logic {
                     Point(490, 523)) == 1 && PlayFieldListener.checkInGridKek(new
                     Point(817, 523)) == 1) {
                 arrWin[0] = 2;
-
+                flagTeamWin = 2;
                 return true;
             }
 
@@ -92,7 +94,7 @@ class Logic {
                     Point(490, 861)) == 1 && PlayFieldListener.checkInGridKek(new
                     Point(817, 861)) == 1) {
                 arrWin[0] = 3;
-
+                flagTeamWin = 2;
                 return true;
             }
 
@@ -105,7 +107,7 @@ class Logic {
                     Point(163, 523)) == 1 && PlayFieldListener.checkInGridKek(new
                     Point(163, 861)) == 1) {
                 arrWin[0] = 4;
-
+                flagTeamWin = 2;
                 return true;
             }
 
@@ -117,7 +119,7 @@ class Logic {
                     Point(490, 523)) == 1 && PlayFieldListener.checkInGridKek(new
                     Point(490, 861)) == 1) {
                 arrWin[0] = 5;
-
+                flagTeamWin = 2;
                 return true;
             }
 
@@ -130,7 +132,7 @@ class Logic {
                     Point(817, 523)) == 1 && PlayFieldListener.checkInGridKek(new
                     Point(817, 861)) == 1) {
                 arrWin[0] = 6;
-
+                flagTeamWin = 2;
                 return true;
             }
 
@@ -141,11 +143,9 @@ class Logic {
                     Point(817, 861)) && PlayFieldListener.checkInGridKek(new
                     Point(163, 163)) == 1 && PlayFieldListener.checkInGridKek(new
                     Point(490, 523)) == 1 && PlayFieldListener.checkInGridKek(new
-
-
                     Point(817, 861)) == 1) {
                 arrWin[0] = 7;
-
+                flagTeamWin = 2;
                 return true;
             }
 
@@ -158,7 +158,7 @@ class Logic {
                     Point(490, 523)) == 1 && PlayFieldListener.checkInGridKek(new
                     Point(163, 861)) == 1) {
                 arrWin[0] = 8;
-
+                flagTeamWin = 2;
                 return true;
             }
 
@@ -171,7 +171,7 @@ class Logic {
                     Point(490, 163)) == 0 && PlayFieldListener.checkInGridKek(new
                     Point(817, 163)) == 0) {
                 arrWin[0] = 11;
-
+                flagTeamWin = 1;
                 return true;
             }
 
@@ -183,7 +183,7 @@ class Logic {
                     Point(490, 523)) == 0 && PlayFieldListener.checkInGridKek(new
                     Point(817, 523)) == 0) {
                 arrWin[0] = 12;
-
+                flagTeamWin = 1;
                 return true;
             }
 
@@ -195,7 +195,7 @@ class Logic {
                     Point(490, 861)) == 0 && PlayFieldListener.checkInGridKek(new
                     Point(817, 861)) == 0) {
                 arrWin[0] = 13;
-
+                flagTeamWin = 1;
                 return true;
             }
 
@@ -208,7 +208,7 @@ class Logic {
                     Point(163, 523)) == 0 && PlayFieldListener.checkInGridKek(new
                     Point(163, 861)) == 0) {
                 arrWin[0] = 14;
-
+                flagTeamWin = 1;
                 return true;
             }
 
@@ -220,7 +220,7 @@ class Logic {
                     Point(490, 523)) == 0 && PlayFieldListener.checkInGridKek(new
                     Point(490, 861)) == 0) {
                 arrWin[0] = 15;
-
+                flagTeamWin = 1;
                 return true;
             }
 
@@ -233,7 +233,7 @@ class Logic {
                     Point(817, 523)) == 0 && PlayFieldListener.checkInGridKek(new
                     Point(817, 861)) == 0) {
                 arrWin[0] = 16;
-
+                flagTeamWin = 1;
                 return true;
             }
 
@@ -246,7 +246,7 @@ class Logic {
                     Point(490, 523)) == 0 && PlayFieldListener.checkInGridKek(new
                     Point(817, 861)) == 0) {
                 arrWin[0] = 17;
-
+                flagTeamWin = 1;
                 return true;
             }
 
@@ -259,7 +259,7 @@ class Logic {
                     Point(490, 523)) == 0 && PlayFieldListener.checkInGridKek(new
                     Point(163, 861)) == 0) {
                 arrWin[0] = 18;
-
+                flagTeamWin = 1;
                 return true;
             }
             arrWin[0] = 0;
@@ -277,7 +277,7 @@ class Logic {
                     Point(227, 67)) == 1 && PlayFieldListener.checkInGridKek_(new
                     Point(362, 67)) == 1) {
                 arrWin[0] = 1;
-
+                flagTeamWin = 2;
                 return true;
             }
 
@@ -289,7 +289,7 @@ class Logic {
                     Point(227, 222)) == 1 && PlayFieldListener.checkInGridKek_(new
                     Point(362, 222)) == 1) {
                 arrWin[0] = 2;
-
+                flagTeamWin = 2;
                 return true;
             }
 
@@ -301,7 +301,7 @@ class Logic {
                     Point(227, 377)) == 1 && PlayFieldListener.checkInGridKek_(new
                     Point(362, 377)) == 1) {
                 arrWin[0] = 3;
-
+                flagTeamWin = 2;
                 return true;
             }
 
@@ -314,7 +314,7 @@ class Logic {
                     Point(72, 222)) == 1 && PlayFieldListener.checkInGridKek_(new
                     Point(72, 377)) == 1) {
                 arrWin[0] = 4;
-
+                flagTeamWin = 2;
                 return true;
             }
 
@@ -326,7 +326,7 @@ class Logic {
                     Point(227, 222)) == 1 && PlayFieldListener.checkInGridKek_(new
                     Point(227, 377)) == 1) {
                 arrWin[0] = 5;
-
+                flagTeamWin = 2;
                 return true;
             }
 
@@ -339,7 +339,7 @@ class Logic {
                     Point(362, 222)) == 1 && PlayFieldListener.checkInGridKek_(new
                     Point(362, 377)) == 1) {
                 arrWin[0] = 6;
-
+                flagTeamWin = 2;
                 return true;
             }
 
@@ -352,7 +352,7 @@ class Logic {
                     Point(227, 222)) == 1 && PlayFieldListener.checkInGridKek_(new
                     Point(362, 377)) == 1) {
                 arrWin[0] = 7;
-
+                flagTeamWin = 2;
                 return true;
             }
 
@@ -365,7 +365,7 @@ class Logic {
                     Point(227, 222)) == 1 && PlayFieldListener.checkInGridKek_(new
                     Point(72, 377)) == 1) {
                 arrWin[0] = 8;
-
+                flagTeamWin = 2;
                 return true;
             }
 
@@ -378,7 +378,7 @@ class Logic {
                     Point(227, 67)) == 0 && PlayFieldListener.checkInGridKek_(new
                     Point(362, 67)) == 0) {
                 arrWin[0] = 11;
-
+                flagTeamWin = 1;
                 return true;
             }
 
@@ -390,7 +390,7 @@ class Logic {
                     Point(227, 222)) == 0 && PlayFieldListener.checkInGridKek_(new
                     Point(362, 222)) == 0) {
                 arrWin[0] = 12;
-
+                flagTeamWin = 1;
                 return true;
             }
 
@@ -402,7 +402,7 @@ class Logic {
                     Point(227, 377)) == 0 && PlayFieldListener.checkInGridKek_(new
                     Point(362, 377)) == 0) {
                 arrWin[0] = 13;
-
+                flagTeamWin = 1;
                 return true;
             }
 
@@ -415,7 +415,7 @@ class Logic {
                     Point(72, 222)) == 0 && PlayFieldListener.checkInGridKek_(new
                     Point(72, 377)) == 0) {
                 arrWin[0] = 14;
-
+                flagTeamWin = 1;
                 return true;
             }
 
@@ -427,7 +427,7 @@ class Logic {
                     Point(227, 222)) == 0 && PlayFieldListener.checkInGridKek_(new
                     Point(227, 377)) == 0) {
                 arrWin[0] = 15;
-
+                flagTeamWin = 1;
                 return true;
             }
 
@@ -440,7 +440,7 @@ class Logic {
                     Point(362, 222)) == 0 && PlayFieldListener.checkInGridKek_(new
                     Point(362, 377)) == 0) {
                 arrWin[0] = 16;
-
+                flagTeamWin = 1;
                 return true;
             }
 
@@ -453,7 +453,7 @@ class Logic {
                     Point(227, 222)) == 0 && PlayFieldListener.checkInGridKek_(new
                     Point(362, 377)) == 0) {
                 arrWin[0] = 17;
-
+                flagTeamWin = 1;
                 return true;
             }
 
@@ -466,7 +466,7 @@ class Logic {
                     Point(227, 222)) == 0 && PlayFieldListener.checkInGridKek_(new
                     Point(72, 377)) == 0) {
                 arrWin[0] = 18;
-
+                flagTeamWin = 1;
                 return true;
             }
 

@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
+import android.support.constraint.ConstraintLayout;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -55,6 +56,7 @@ public class PlayField3x3 extends View {
     public void restartGame() {
         cells.clear();
         cells_.clear();
+        Logic.flagTeamWin = 0;
         invalidate();
     }
 
@@ -63,7 +65,9 @@ public class PlayField3x3 extends View {
         cells_.clear();
         Logic.winX = 0;
         Logic.winO = 0;
+        Logic.flagTeamWin = 0;
         PlayFieldListener.countStep = 0;
+
     }
 
     @Override
@@ -77,6 +81,8 @@ public class PlayField3x3 extends View {
     protected void onDraw(Canvas canvas) {
 
         super.onDraw(canvas);
+
+        if (Logic.flagTeamWin != 0) this.setClickable(false);
 
         /* build x|o */
         if (Logic.countChangeOrientation % 2 == 0) {
@@ -96,7 +102,7 @@ public class PlayField3x3 extends View {
 
             }
         } else if (Logic.countChangeOrientation % 2 != 0) {
-            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+
             for (int i = 0; i != cells_.size(); i++) {
 
                 if (cells_.get(i).kek == 0) {
@@ -211,8 +217,7 @@ public class PlayField3x3 extends View {
                         cX.setText(String.valueOf(Logic.winX));
                         break;
                 }
-            }
-            else if (Logic.countChangeOrientation % 2 != 0){
+            } else if (Logic.countChangeOrientation % 2 != 0) {
 
                 paint.setColor(Color.BLUE);
                 paint.setStrokeWidth(10);

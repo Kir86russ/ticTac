@@ -29,8 +29,8 @@ public class Main2Activity extends AppCompatActivity {
     TextView cX;
     TextView cO;
 
-    static String strcX;
-    static String strcO;
+    static int strcX;
+    static int strcO;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,6 +44,14 @@ public class Main2Activity extends AppCompatActivity {
 
 
         frame = (FrameLayout) findViewById(R.id.frameLayout);
+        ConstraintLayout.LayoutParams params_lay = (ConstraintLayout.LayoutParams) frame.getLayoutParams();
+
+        if (Logic.countChangeOrientation % 2 != 0){
+            params_lay.width = 450;
+            params_lay.height = 450;
+            frame.setLayoutParams(params_lay);
+        }
+
         frame.setBackgroundResource(R.drawable.grido);
 
         frame.addView(playField);
@@ -55,8 +63,10 @@ public class Main2Activity extends AppCompatActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK)
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
             playField.exitGame();
+
+        }
         return super.onKeyDown(keyCode, event);
     }
 
@@ -86,23 +96,23 @@ public class Main2Activity extends AppCompatActivity {
         cX = findViewById(R.id.countWinX);
         cO = findViewById(R.id.countWinO);
 
-        strcX = (String) cX.getText();
-        strcO = (String) cO.getText();
+        strcX = Integer.parseInt((String) cX.getText());
+        strcO = Integer.parseInt((String) cO.getText());
 
 
     }
 
-
+    @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-
-
 
         cX = findViewById(R.id.countWinX);
         cO = findViewById(R.id.countWinO);
 
+
         cX.setText(String.valueOf(strcX));
         cO.setText(String.valueOf(strcO));
+
 
         frame = (FrameLayout) findViewById(R.id.frameLayout);
         ConstraintLayout.LayoutParams params_lay = (ConstraintLayout.LayoutParams) frame.getLayoutParams();
@@ -111,8 +121,7 @@ public class Main2Activity extends AppCompatActivity {
             params_lay.width = 450;
             params_lay.height = 450;
 
-        }
-        else if (Logic.countChangeOrientation % 2 != 0){
+        } else if (Logic.countChangeOrientation % 2 != 0) {
             frame.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
                     FrameLayout.LayoutParams.MATCH_PARENT));
         }
