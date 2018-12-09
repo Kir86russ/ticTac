@@ -57,213 +57,423 @@ class Logic {
 
 
     boolean checkWin() {
-        /* Проверка на победу ноликов, горизонтальный ряд*/
-        if (PlayFieldListener.checkInGrid(new
-                Point(163, 163)) && PlayFieldListener.checkInGrid(new
-                Point(490, 163)) && PlayFieldListener.checkInGrid(new
-                Point(817, 163)) && PlayFieldListener.checkInGridKek(new
-                Point(163, 163)) == 1 && PlayFieldListener.checkInGridKek(new
-                Point(490, 163)) == 1 && PlayFieldListener.checkInGridKek(new
-                Point(817, 163)) == 1) {
-            arrWin[0] = 1;
+        if (Logic.countChangeOrientation % 2 == 0) {
 
-            return true;
-        }
+            /* Проверка на победу ноликов, горизонтальный ряд*/
+            if (PlayFieldListener.checkInGrid(new
+                    Point(163, 163)) && PlayFieldListener.checkInGrid(new
+                    Point(490, 163)) && PlayFieldListener.checkInGrid(new
+                    Point(817, 163)) && PlayFieldListener.checkInGridKek(new
+                    Point(163, 163)) == 1 && PlayFieldListener.checkInGridKek(new
+                    Point(490, 163)) == 1 && PlayFieldListener.checkInGridKek(new
+                    Point(817, 163)) == 1) {
+                arrWin[0] = 1;
 
-        if (PlayFieldListener.checkInGrid(new
-                Point(163, 523)) && PlayFieldListener.checkInGrid(new
-                Point(490, 523)) && PlayFieldListener.checkInGrid(new
-                Point(817, 523)) && PlayFieldListener.checkInGridKek(new
-                Point(163, 523)) == 1 && PlayFieldListener.checkInGridKek(new
-                Point(490, 523)) == 1 && PlayFieldListener.checkInGridKek(new
-                Point(817, 523)) == 1) {
-            arrWin[0] = 2;
+                return true;
+            }
 
-            return true;
-        }
+            if (PlayFieldListener.checkInGrid(new
+                    Point(163, 523)) && PlayFieldListener.checkInGrid(new
+                    Point(490, 523)) && PlayFieldListener.checkInGrid(new
+                    Point(817, 523)) && PlayFieldListener.checkInGridKek(new
+                    Point(163, 523)) == 1 && PlayFieldListener.checkInGridKek(new
+                    Point(490, 523)) == 1 && PlayFieldListener.checkInGridKek(new
+                    Point(817, 523)) == 1) {
+                arrWin[0] = 2;
 
-        if (PlayFieldListener.checkInGrid(new
-                Point(163, 861)) && PlayFieldListener.checkInGrid(new
-                Point(490, 861)) && PlayFieldListener.checkInGrid(new
-                Point(817, 861)) && PlayFieldListener.checkInGridKek(new
-                Point(163, 861)) == 1 && PlayFieldListener.checkInGridKek(new
-                Point(490, 861)) == 1 && PlayFieldListener.checkInGridKek(new
-                Point(817, 861)) == 1) {
-            arrWin[0] = 3;
+                return true;
+            }
 
-            return true;
-        }
+            if (PlayFieldListener.checkInGrid(new
+                    Point(163, 861)) && PlayFieldListener.checkInGrid(new
+                    Point(490, 861)) && PlayFieldListener.checkInGrid(new
+                    Point(817, 861)) && PlayFieldListener.checkInGridKek(new
+                    Point(163, 861)) == 1 && PlayFieldListener.checkInGridKek(new
+                    Point(490, 861)) == 1 && PlayFieldListener.checkInGridKek(new
+                    Point(817, 861)) == 1) {
+                arrWin[0] = 3;
 
-        /* Проверка на победу ноликов, вертикальный ряд*/
-        if (PlayFieldListener.checkInGrid(new
-                Point(163, 163)) && PlayFieldListener.checkInGrid(new
-                Point(163, 523)) && PlayFieldListener.checkInGrid(new
-                Point(163, 861)) && PlayFieldListener.checkInGridKek(new
-                Point(163, 163)) == 1 && PlayFieldListener.checkInGridKek(new
-                Point(163, 523)) == 1 && PlayFieldListener.checkInGridKek(new
-                Point(163, 861)) == 1) {
-            arrWin[0] = 4;
+                return true;
+            }
 
-            return true;
-        }
+            /* Проверка на победу ноликов, вертикальный ряд*/
+            if (PlayFieldListener.checkInGrid(new
+                    Point(163, 163)) && PlayFieldListener.checkInGrid(new
+                    Point(163, 523)) && PlayFieldListener.checkInGrid(new
+                    Point(163, 861)) && PlayFieldListener.checkInGridKek(new
+                    Point(163, 163)) == 1 && PlayFieldListener.checkInGridKek(new
+                    Point(163, 523)) == 1 && PlayFieldListener.checkInGridKek(new
+                    Point(163, 861)) == 1) {
+                arrWin[0] = 4;
 
-        if (PlayFieldListener.checkInGrid(new
-                Point(490, 163)) && PlayFieldListener.checkInGrid(new
-                Point(490, 523)) && PlayFieldListener.checkInGrid(new
-                Point(490, 861)) && PlayFieldListener.checkInGridKek(new
-                Point(490, 163)) == 1 && PlayFieldListener.checkInGridKek(new
-                Point(490, 523)) == 1 && PlayFieldListener.checkInGridKek(new
-                Point(490, 861)) == 1) {
-            arrWin[0] = 5;
+                return true;
+            }
 
-            return true;
-        }
+            if (PlayFieldListener.checkInGrid(new
+                    Point(490, 163)) && PlayFieldListener.checkInGrid(new
+                    Point(490, 523)) && PlayFieldListener.checkInGrid(new
+                    Point(490, 861)) && PlayFieldListener.checkInGridKek(new
+                    Point(490, 163)) == 1 && PlayFieldListener.checkInGridKek(new
+                    Point(490, 523)) == 1 && PlayFieldListener.checkInGridKek(new
+                    Point(490, 861)) == 1) {
+                arrWin[0] = 5;
 
-
-        if (PlayFieldListener.checkInGrid(new
-                Point(817, 163)) && PlayFieldListener.checkInGrid(new
-                Point(817, 523)) && PlayFieldListener.checkInGrid(new
-                Point(817, 861)) && PlayFieldListener.checkInGridKek(new
-                Point(817, 163)) == 1 && PlayFieldListener.checkInGridKek(new
-                Point(817, 523)) == 1 && PlayFieldListener.checkInGridKek(new
-                Point(817, 861)) == 1) {
-            arrWin[0] = 6;
-
-            return true;
-        }
-
-        /* Проверка на победу ноликов, диагональный \ ряд */
-        if (PlayFieldListener.checkInGrid(new
-                Point(163, 163)) && PlayFieldListener.checkInGrid(new
-                Point(490, 523)) && PlayFieldListener.checkInGrid(new
-                Point(817, 861)) && PlayFieldListener.checkInGridKek(new
-                Point(163, 163)) == 1 && PlayFieldListener.checkInGridKek(new
-                Point(490, 523)) == 1 && PlayFieldListener.checkInGridKek(new
+                return true;
+            }
 
 
-                Point(817, 861)) == 1) {
-            arrWin[0] = 7;
+            if (PlayFieldListener.checkInGrid(new
+                    Point(817, 163)) && PlayFieldListener.checkInGrid(new
+                    Point(817, 523)) && PlayFieldListener.checkInGrid(new
+                    Point(817, 861)) && PlayFieldListener.checkInGridKek(new
+                    Point(817, 163)) == 1 && PlayFieldListener.checkInGridKek(new
+                    Point(817, 523)) == 1 && PlayFieldListener.checkInGridKek(new
+                    Point(817, 861)) == 1) {
+                arrWin[0] = 6;
 
-            return true;
-        }
+                return true;
+            }
 
-        /* Проверка на победу ноликов, диагональный / ряд */
-        if (PlayFieldListener.checkInGrid(new
-                Point(817, 163)) && PlayFieldListener.checkInGrid(new
-                Point(490, 523)) && PlayFieldListener.checkInGrid(new
-                Point(163, 861)) && PlayFieldListener.checkInGridKek(new
-                Point(817, 163)) == 1 && PlayFieldListener.checkInGridKek(new
-                Point(490, 523)) == 1 && PlayFieldListener.checkInGridKek(new
-                Point(163, 861)) == 1) {
-            arrWin[0] = 8;
-
-            return true;
-        }
-
-        /* Проверка на победу КРЕСТИКОВ, горизонтальный ряд*/
-        if (PlayFieldListener.checkInGrid(new
-                Point(163, 163)) && PlayFieldListener.checkInGrid(new
-                Point(490, 163)) && PlayFieldListener.checkInGrid(new
-                Point(817, 163)) && PlayFieldListener.checkInGridKek(new
-                Point(163, 163)) == 0 && PlayFieldListener.checkInGridKek(new
-                Point(490, 163)) == 0 && PlayFieldListener.checkInGridKek(new
-                Point(817, 163)) == 0) {
-            arrWin[0] = 11;
-
-            return true;
-        }
-
-        if (PlayFieldListener.checkInGrid(new
-                Point(163, 523)) && PlayFieldListener.checkInGrid(new
-                Point(490, 523)) && PlayFieldListener.checkInGrid(new
-                Point(817, 523)) && PlayFieldListener.checkInGridKek(new
-                Point(163, 523)) == 0 && PlayFieldListener.checkInGridKek(new
-                Point(490, 523)) == 0 && PlayFieldListener.checkInGridKek(new
-                Point(817, 523)) == 0) {
-            arrWin[0] = 12;
-
-            return true;
-        }
-
-        if (PlayFieldListener.checkInGrid(new
-                Point(163, 861)) && PlayFieldListener.checkInGrid(new
-                Point(490, 861)) && PlayFieldListener.checkInGrid(new
-                Point(817, 861)) && PlayFieldListener.checkInGridKek(new
-                Point(163, 861)) == 0 && PlayFieldListener.checkInGridKek(new
-                Point(490, 861)) == 0 && PlayFieldListener.checkInGridKek(new
-                Point(817, 861)) == 0) {
-            arrWin[0] = 13;
-
-            return true;
-        }
-
-        /* Проверка на победу КРЕСТИКОВ, вертикальный ряд*/
-        if (PlayFieldListener.checkInGrid(new
-                Point(163, 163)) && PlayFieldListener.checkInGrid(new
-                Point(163, 523)) && PlayFieldListener.checkInGrid(new
-                Point(163, 861)) && PlayFieldListener.checkInGridKek(new
-                Point(163, 163)) == 0 && PlayFieldListener.checkInGridKek(new
-                Point(163, 523)) == 0 && PlayFieldListener.checkInGridKek(new
-                Point(163, 861)) == 0) {
-            arrWin[0] = 14;
-
-            return true;
-        }
-
-        if (PlayFieldListener.checkInGrid(new
-                Point(490, 163)) && PlayFieldListener.checkInGrid(new
-                Point(490, 523)) && PlayFieldListener.checkInGrid(new
-                Point(490, 861)) && PlayFieldListener.checkInGridKek(new
-                Point(490, 163)) == 0 && PlayFieldListener.checkInGridKek(new
-                Point(490, 523)) == 0 && PlayFieldListener.checkInGridKek(new
-                Point(490, 861)) == 0) {
-            arrWin[0] = 15;
-
-            return true;
-        }
+            /* Проверка на победу ноликов, диагональный \ ряд */
+            if (PlayFieldListener.checkInGrid(new
+                    Point(163, 163)) && PlayFieldListener.checkInGrid(new
+                    Point(490, 523)) && PlayFieldListener.checkInGrid(new
+                    Point(817, 861)) && PlayFieldListener.checkInGridKek(new
+                    Point(163, 163)) == 1 && PlayFieldListener.checkInGridKek(new
+                    Point(490, 523)) == 1 && PlayFieldListener.checkInGridKek(new
 
 
-        if (PlayFieldListener.checkInGrid(new
-                Point(817, 163)) && PlayFieldListener.checkInGrid(new
-                Point(817, 523)) && PlayFieldListener.checkInGrid(new
-                Point(817, 861)) && PlayFieldListener.checkInGridKek(new
-                Point(817, 163)) == 0 && PlayFieldListener.checkInGridKek(new
-                Point(817, 523)) == 0 && PlayFieldListener.checkInGridKek(new
-                Point(817, 861)) == 0) {
-            arrWin[0] = 16;
+                    Point(817, 861)) == 1) {
+                arrWin[0] = 7;
 
-            return true;
-        }
+                return true;
+            }
 
-        /* Проверка на победу КРЕСТИКОВ, диагональный \ ряд */
-        if (PlayFieldListener.checkInGrid(new
-                Point(163, 163)) && PlayFieldListener.checkInGrid(new
-                Point(490, 523)) && PlayFieldListener.checkInGrid(new
-                Point(817, 861)) && PlayFieldListener.checkInGridKek(new
-                Point(163, 163)) == 0 && PlayFieldListener.checkInGridKek(new
-                Point(490, 523)) == 0 && PlayFieldListener.checkInGridKek(new
-                Point(817, 861)) == 0) {
-            arrWin[0] = 17;
+            /* Проверка на победу ноликов, диагональный / ряд */
+            if (PlayFieldListener.checkInGrid(new
+                    Point(817, 163)) && PlayFieldListener.checkInGrid(new
+                    Point(490, 523)) && PlayFieldListener.checkInGrid(new
+                    Point(163, 861)) && PlayFieldListener.checkInGridKek(new
+                    Point(817, 163)) == 1 && PlayFieldListener.checkInGridKek(new
+                    Point(490, 523)) == 1 && PlayFieldListener.checkInGridKek(new
+                    Point(163, 861)) == 1) {
+                arrWin[0] = 8;
 
-            return true;
-        }
+                return true;
+            }
 
-        /* Проверка на победу КРЕСТИКОВ, диагональный / ряд */
-        if (PlayFieldListener.checkInGrid(new
-                Point(817, 163)) && PlayFieldListener.checkInGrid(new
-                Point(490, 523)) && PlayFieldListener.checkInGrid(new
-                Point(163, 861)) && PlayFieldListener.checkInGridKek(new
-                Point(817, 163)) == 0 && PlayFieldListener.checkInGridKek(new
-                Point(490, 523)) == 0 && PlayFieldListener.checkInGridKek(new
-                Point(163, 861)) == 0) {
-            arrWin[0] = 18;
+            /* Проверка на победу КРЕСТИКОВ, горизонтальный ряд*/
+            if (PlayFieldListener.checkInGrid(new
+                    Point(163, 163)) && PlayFieldListener.checkInGrid(new
+                    Point(490, 163)) && PlayFieldListener.checkInGrid(new
+                    Point(817, 163)) && PlayFieldListener.checkInGridKek(new
+                    Point(163, 163)) == 0 && PlayFieldListener.checkInGridKek(new
+                    Point(490, 163)) == 0 && PlayFieldListener.checkInGridKek(new
+                    Point(817, 163)) == 0) {
+                arrWin[0] = 11;
 
-            return true;
-        } else {
+                return true;
+            }
+
+            if (PlayFieldListener.checkInGrid(new
+                    Point(163, 523)) && PlayFieldListener.checkInGrid(new
+                    Point(490, 523)) && PlayFieldListener.checkInGrid(new
+                    Point(817, 523)) && PlayFieldListener.checkInGridKek(new
+                    Point(163, 523)) == 0 && PlayFieldListener.checkInGridKek(new
+                    Point(490, 523)) == 0 && PlayFieldListener.checkInGridKek(new
+                    Point(817, 523)) == 0) {
+                arrWin[0] = 12;
+
+                return true;
+            }
+
+            if (PlayFieldListener.checkInGrid(new
+                    Point(163, 861)) && PlayFieldListener.checkInGrid(new
+                    Point(490, 861)) && PlayFieldListener.checkInGrid(new
+                    Point(817, 861)) && PlayFieldListener.checkInGridKek(new
+                    Point(163, 861)) == 0 && PlayFieldListener.checkInGridKek(new
+                    Point(490, 861)) == 0 && PlayFieldListener.checkInGridKek(new
+                    Point(817, 861)) == 0) {
+                arrWin[0] = 13;
+
+                return true;
+            }
+
+            /* Проверка на победу КРЕСТИКОВ, вертикальный ряд*/
+            if (PlayFieldListener.checkInGrid(new
+                    Point(163, 163)) && PlayFieldListener.checkInGrid(new
+                    Point(163, 523)) && PlayFieldListener.checkInGrid(new
+                    Point(163, 861)) && PlayFieldListener.checkInGridKek(new
+                    Point(163, 163)) == 0 && PlayFieldListener.checkInGridKek(new
+                    Point(163, 523)) == 0 && PlayFieldListener.checkInGridKek(new
+                    Point(163, 861)) == 0) {
+                arrWin[0] = 14;
+
+                return true;
+            }
+
+            if (PlayFieldListener.checkInGrid(new
+                    Point(490, 163)) && PlayFieldListener.checkInGrid(new
+                    Point(490, 523)) && PlayFieldListener.checkInGrid(new
+                    Point(490, 861)) && PlayFieldListener.checkInGridKek(new
+                    Point(490, 163)) == 0 && PlayFieldListener.checkInGridKek(new
+                    Point(490, 523)) == 0 && PlayFieldListener.checkInGridKek(new
+                    Point(490, 861)) == 0) {
+                arrWin[0] = 15;
+
+                return true;
+            }
+
+
+            if (PlayFieldListener.checkInGrid(new
+                    Point(817, 163)) && PlayFieldListener.checkInGrid(new
+                    Point(817, 523)) && PlayFieldListener.checkInGrid(new
+                    Point(817, 861)) && PlayFieldListener.checkInGridKek(new
+                    Point(817, 163)) == 0 && PlayFieldListener.checkInGridKek(new
+                    Point(817, 523)) == 0 && PlayFieldListener.checkInGridKek(new
+                    Point(817, 861)) == 0) {
+                arrWin[0] = 16;
+
+                return true;
+            }
+
+            /* Проверка на победу КРЕСТИКОВ, диагональный \ ряд */
+            if (PlayFieldListener.checkInGrid(new
+                    Point(163, 163)) && PlayFieldListener.checkInGrid(new
+                    Point(490, 523)) && PlayFieldListener.checkInGrid(new
+                    Point(817, 861)) && PlayFieldListener.checkInGridKek(new
+                    Point(163, 163)) == 0 && PlayFieldListener.checkInGridKek(new
+                    Point(490, 523)) == 0 && PlayFieldListener.checkInGridKek(new
+                    Point(817, 861)) == 0) {
+                arrWin[0] = 17;
+
+                return true;
+            }
+
+            /* Проверка на победу КРЕСТИКОВ, диагональный / ряд */
+            if (PlayFieldListener.checkInGrid(new
+                    Point(817, 163)) && PlayFieldListener.checkInGrid(new
+                    Point(490, 523)) && PlayFieldListener.checkInGrid(new
+                    Point(163, 861)) && PlayFieldListener.checkInGridKek(new
+                    Point(817, 163)) == 0 && PlayFieldListener.checkInGridKek(new
+                    Point(490, 523)) == 0 && PlayFieldListener.checkInGridKek(new
+                    Point(163, 861)) == 0) {
+                arrWin[0] = 18;
+
+                return true;
+            }
             arrWin[0] = 0;
             return false;
+
+
+        } else if (Logic.countChangeOrientation % 2 != 0) {     // LANDSCAPE
+
+            /* Проверка на победу ноликов, горизонтальный ряд*/
+            if (PlayFieldListener.checkInGrid_(new
+                    Point(72, 67)) && PlayFieldListener.checkInGrid_(new
+                    Point(227, 67)) && PlayFieldListener.checkInGrid_(new
+                    Point(362, 67)) && PlayFieldListener.checkInGridKek_(new
+                    Point(72, 67)) == 1 && PlayFieldListener.checkInGridKek_(new
+                    Point(227, 67)) == 1 && PlayFieldListener.checkInGridKek_(new
+                    Point(362, 67)) == 1) {
+                arrWin[0] = 1;
+
+                return true;
+            }
+
+            if (PlayFieldListener.checkInGrid_(new
+                    Point(72, 222)) && PlayFieldListener.checkInGrid_(new
+                    Point(227, 222)) && PlayFieldListener.checkInGrid_(new
+                    Point(362, 222)) && PlayFieldListener.checkInGridKek_(new
+                    Point(72, 222)) == 1 && PlayFieldListener.checkInGridKek_(new
+                    Point(227, 222)) == 1 && PlayFieldListener.checkInGridKek_(new
+                    Point(362, 222)) == 1) {
+                arrWin[0] = 2;
+
+                return true;
+            }
+
+            if (PlayFieldListener.checkInGrid_(new
+                    Point(72, 377)) && PlayFieldListener.checkInGrid_(new
+                    Point(227, 377)) && PlayFieldListener.checkInGrid_(new
+                    Point(362, 377)) && PlayFieldListener.checkInGridKek_(new
+                    Point(72, 377)) == 1 && PlayFieldListener.checkInGridKek_(new
+                    Point(227, 377)) == 1 && PlayFieldListener.checkInGridKek_(new
+                    Point(362, 377)) == 1) {
+                arrWin[0] = 3;
+
+                return true;
+            }
+
+            /* Проверка на победу ноликов, вертикальный ряд*/
+            if (PlayFieldListener.checkInGrid_(new
+                    Point(72, 67)) && PlayFieldListener.checkInGrid_(new
+                    Point(72, 222)) && PlayFieldListener.checkInGrid_(new
+                    Point(72, 377)) && PlayFieldListener.checkInGridKek_(new
+                    Point(72, 67)) == 1 && PlayFieldListener.checkInGridKek_(new
+                    Point(72, 222)) == 1 && PlayFieldListener.checkInGridKek_(new
+                    Point(72, 377)) == 1) {
+                arrWin[0] = 4;
+
+                return true;
+            }
+
+            if (PlayFieldListener.checkInGrid_(new
+                    Point(227, 67)) && PlayFieldListener.checkInGrid_(new
+                    Point(227, 222)) && PlayFieldListener.checkInGrid_(new
+                    Point(227, 377)) && PlayFieldListener.checkInGridKek_(new
+                    Point(227, 67)) == 1 && PlayFieldListener.checkInGridKek_(new
+                    Point(227, 222)) == 1 && PlayFieldListener.checkInGridKek_(new
+                    Point(227, 377)) == 1) {
+                arrWin[0] = 5;
+
+                return true;
+            }
+
+
+            if (PlayFieldListener.checkInGrid_(new
+                    Point(362, 67)) && PlayFieldListener.checkInGrid_(new
+                    Point(362, 222)) && PlayFieldListener.checkInGrid_(new
+                    Point(362, 377)) && PlayFieldListener.checkInGridKek_(new
+                    Point(362, 67)) == 1 && PlayFieldListener.checkInGridKek_(new
+                    Point(362, 222)) == 1 && PlayFieldListener.checkInGridKek_(new
+                    Point(362, 377)) == 1) {
+                arrWin[0] = 6;
+
+                return true;
+            }
+
+            /* Проверка на победу ноликов, диагональный \ ряд */
+            if (PlayFieldListener.checkInGrid_(new
+                    Point(72, 67)) && PlayFieldListener.checkInGrid_(new
+                    Point(227, 222)) && PlayFieldListener.checkInGrid_(new
+                    Point(362, 377)) && PlayFieldListener.checkInGridKek_(new
+                    Point(72, 67)) == 1 && PlayFieldListener.checkInGridKek_(new
+                    Point(227, 222)) == 1 && PlayFieldListener.checkInGridKek_(new
+                    Point(362, 377)) == 1) {
+                arrWin[0] = 7;
+
+                return true;
+            }
+
+            /* Проверка на победу ноликов, диагональный / ряд */
+            if (PlayFieldListener.checkInGrid_(new
+                    Point(362, 67)) && PlayFieldListener.checkInGrid_(new
+                    Point(227, 222)) && PlayFieldListener.checkInGrid_(new
+                    Point(72, 377)) && PlayFieldListener.checkInGridKek_(new
+                    Point(362, 67)) == 1 && PlayFieldListener.checkInGridKek_(new
+                    Point(227, 222)) == 1 && PlayFieldListener.checkInGridKek_(new
+                    Point(72, 377)) == 1) {
+                arrWin[0] = 8;
+
+                return true;
+            }
+
+            /* Проверка на победу КРЕСТИКОВ, горизонтальный ряд*/
+            if (PlayFieldListener.checkInGrid_(new
+                    Point(72, 67)) && PlayFieldListener.checkInGrid_(new
+                    Point(227, 67)) && PlayFieldListener.checkInGrid_(new
+                    Point(362, 67)) && PlayFieldListener.checkInGridKek_(new
+                    Point(72, 67)) == 0 && PlayFieldListener.checkInGridKek_(new
+                    Point(227, 67)) == 0 && PlayFieldListener.checkInGridKek_(new
+                    Point(362, 67)) == 0) {
+                arrWin[0] = 11;
+
+                return true;
+            }
+
+            if (PlayFieldListener.checkInGrid_(new
+                    Point(72, 222)) && PlayFieldListener.checkInGrid_(new
+                    Point(227, 222)) && PlayFieldListener.checkInGrid_(new
+                    Point(362, 222)) && PlayFieldListener.checkInGridKek_(new
+                    Point(72, 222)) == 0 && PlayFieldListener.checkInGridKek_(new
+                    Point(227, 222)) == 0 && PlayFieldListener.checkInGridKek_(new
+                    Point(362, 222)) == 0) {
+                arrWin[0] = 12;
+
+                return true;
+            }
+
+            if (PlayFieldListener.checkInGrid_(new
+                    Point(72, 377)) && PlayFieldListener.checkInGrid_(new
+                    Point(227, 377)) && PlayFieldListener.checkInGrid_(new
+                    Point(362, 377)) && PlayFieldListener.checkInGridKek_(new
+                    Point(72, 377)) == 0 && PlayFieldListener.checkInGridKek_(new
+                    Point(227, 377)) == 0 && PlayFieldListener.checkInGridKek_(new
+                    Point(362, 377)) == 0) {
+                arrWin[0] = 13;
+
+                return true;
+            }
+
+            /* Проверка на победу крестиков, вертикальный ряд*/
+            if (PlayFieldListener.checkInGrid_(new
+                    Point(72, 67)) && PlayFieldListener.checkInGrid_(new
+                    Point(72, 222)) && PlayFieldListener.checkInGrid_(new
+                    Point(72, 377)) && PlayFieldListener.checkInGridKek_(new
+                    Point(72, 67)) == 0 && PlayFieldListener.checkInGridKek_(new
+                    Point(72, 222)) == 0 && PlayFieldListener.checkInGridKek_(new
+                    Point(72, 377)) == 0) {
+                arrWin[0] = 14;
+
+                return true;
+            }
+
+            if (PlayFieldListener.checkInGrid_(new
+                    Point(227, 67)) && PlayFieldListener.checkInGrid_(new
+                    Point(227, 222)) && PlayFieldListener.checkInGrid_(new
+                    Point(227, 377)) && PlayFieldListener.checkInGridKek_(new
+                    Point(227, 67)) == 0 && PlayFieldListener.checkInGridKek_(new
+                    Point(227, 222)) == 0 && PlayFieldListener.checkInGridKek_(new
+                    Point(227, 377)) == 0) {
+                arrWin[0] = 15;
+
+                return true;
+            }
+
+
+            if (PlayFieldListener.checkInGrid_(new
+                    Point(362, 67)) && PlayFieldListener.checkInGrid_(new
+                    Point(362, 222)) && PlayFieldListener.checkInGrid_(new
+                    Point(362, 377)) && PlayFieldListener.checkInGridKek_(new
+                    Point(362, 67)) == 0 && PlayFieldListener.checkInGridKek_(new
+                    Point(362, 222)) == 0 && PlayFieldListener.checkInGridKek_(new
+                    Point(362, 377)) == 0) {
+                arrWin[0] = 16;
+
+                return true;
+            }
+
+            /* Проверка на победу крестиков, диагональный \ ряд */
+            if (PlayFieldListener.checkInGrid_(new
+                    Point(72, 67)) && PlayFieldListener.checkInGrid_(new
+                    Point(227, 222)) && PlayFieldListener.checkInGrid_(new
+                    Point(362, 377)) && PlayFieldListener.checkInGridKek_(new
+                    Point(72, 67)) == 0 && PlayFieldListener.checkInGridKek_(new
+                    Point(227, 222)) == 0 && PlayFieldListener.checkInGridKek_(new
+                    Point(362, 377)) == 0) {
+                arrWin[0] = 17;
+
+                return true;
+            }
+
+            /* Проверка на победу крестиков, диагональный / ряд */
+            if (PlayFieldListener.checkInGrid_(new
+                    Point(362, 67)) && PlayFieldListener.checkInGrid_(new
+                    Point(227, 222)) && PlayFieldListener.checkInGrid_(new
+                    Point(72, 377)) && PlayFieldListener.checkInGridKek_(new
+                    Point(362, 67)) == 0 && PlayFieldListener.checkInGridKek_(new
+                    Point(227, 222)) == 0 && PlayFieldListener.checkInGridKek_(new
+                    Point(72, 377)) == 0) {
+                arrWin[0] = 18;
+
+                return true;
+            }
+
         }
+        arrWin[0] = 0;
+        return false;
     }
+
+
 }
-
-

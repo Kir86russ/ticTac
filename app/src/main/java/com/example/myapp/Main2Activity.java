@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 
 public class Main2Activity extends AppCompatActivity {
@@ -24,6 +25,12 @@ public class Main2Activity extends AppCompatActivity {
     Logic logic = new Logic();
     Button button; // restart
 
+
+    TextView cX;
+    TextView cO;
+
+    static String strcX;
+    static String strcO;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,35 +79,47 @@ public class Main2Activity extends AppCompatActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) { // смена ориентации
-
-
         super.onSaveInstanceState(outState);
 
-        Logic.countChangeOrientation++;
+        PlayFieldListener.countStep--;
 
-        if (logic.checkWin()) {
-            if (Logic.arrWin[0] >= 1 && Logic.arrWin[0] <= 8)
-                Logic.winO--;
-            else if (Logic.arrWin[0] >= 11 && Logic.arrWin[0] <= 18)
-                Logic.winX--;
-        }
+        cX = findViewById(R.id.countWinX);
+        cO = findViewById(R.id.countWinO);
+
+        strcX = (String) cX.getText();
+        strcO = (String) cO.getText();
 
 
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA1");
     }
 
 
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
 
+
+
+        cX = findViewById(R.id.countWinX);
+        cO = findViewById(R.id.countWinO);
+
+        cX.setText(String.valueOf(strcX));
+        cO.setText(String.valueOf(strcO));
+
         frame = (FrameLayout) findViewById(R.id.frameLayout);
-
         ConstraintLayout.LayoutParams params_lay = (ConstraintLayout.LayoutParams) frame.getLayoutParams();
-        params_lay.width = 450;
-        params_lay.height = 450;
+
+        if (Logic.countChangeOrientation % 2 == 0) {
+            params_lay.width = 450;
+            params_lay.height = 450;
+
+        }
+        else if (Logic.countChangeOrientation % 2 != 0){
+            frame.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
+                    FrameLayout.LayoutParams.MATCH_PARENT));
+        }
+
         frame.setLayoutParams(params_lay);
+        Logic.countChangeOrientation++;
 
 
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA2" + " " + Logic.countChangeOrientation);
     }
 }
