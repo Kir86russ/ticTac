@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -16,13 +17,26 @@ public class MainActivity extends AppCompatActivity {
     private Switch aSwitch;
     private boolean flagOnSwitch;
 
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Log.i("Notification", "AAAAAAAAAAAAAAAAAAAAAAAAASSSSASSSSSSSSSSSSSSSSSSSSSSSSSS");
+
+        intent = new Intent(this, NotificationService.class);//
+
         setContentView(R.layout.activity_main);
         addListenerOnButton();
         addListenerOnSwitch();
+        stopService(intent);//
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        startService(intent);
     }
 
     public void addListenerOnSwitch() {
@@ -56,17 +70,5 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
     }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-
-        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            Logic.countChangeOrientation = 1;
-        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            Logic.countChangeOrientation = 0;
-        }
-    }
-
 }
 

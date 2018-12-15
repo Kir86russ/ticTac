@@ -1,23 +1,20 @@
 package com.example.myapp;
 
-import android.content.res.Configuration;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
+import android.support.constraint.Constraints;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
 public class Main2Activity extends AppCompatActivity {
-    PlayField3x3 playField;
+    PlayField playField;
     ConstraintLayout layout;
     FrameLayout frame;
 
@@ -25,6 +22,7 @@ public class Main2Activity extends AppCompatActivity {
     Logic logic = new Logic();
     Button button; // restart
 
+    Intent intent;
 
     TextView cX;
     TextView cO;
@@ -36,21 +34,16 @@ public class Main2Activity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+        intent = new Intent(this, NotificationService.class);//
         setContentView(R.layout.activity_main2);
 
-        playField = new PlayField3x3(this);
+        playField = new PlayField(this, 3);
 
         layout = (ConstraintLayout) findViewById(R.id.q);
 
 
         frame = (FrameLayout) findViewById(R.id.frameLayout);
-        ConstraintLayout.LayoutParams params_lay = (ConstraintLayout.LayoutParams) frame.getLayoutParams();
-
-        if (Logic.countChangeOrientation % 2 != 0){
-            params_lay.width = 450;
-            params_lay.height = 450;
-            frame.setLayoutParams(params_lay);
-        }
 
         frame.setBackgroundResource(R.drawable.grido);
 
@@ -58,7 +51,7 @@ public class Main2Activity extends AppCompatActivity {
 
         layout.setBackgroundResource(R.drawable.back_notebook2);
         addListenerOnButton();
-
+        startService(intent);
     }
 
     @Override
@@ -91,15 +84,10 @@ public class Main2Activity extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState) { // смена ориентации
         super.onSaveInstanceState(outState);
 
+        if (Logic.flagTeamWin == 1) Logic.winX--;
+        if (Logic.flagTeamWin == 2) Logic.winO--;
+
         PlayFieldListener.countStep--;
-
-        cX = findViewById(R.id.countWinX);
-        cO = findViewById(R.id.countWinO);
-
-        strcX = Integer.parseInt((String) cX.getText());
-        strcO = Integer.parseInt((String) cO.getText());
-
-
     }
 
     @Override
@@ -109,26 +97,7 @@ public class Main2Activity extends AppCompatActivity {
         cX = findViewById(R.id.countWinX);
         cO = findViewById(R.id.countWinO);
 
-
-        cX.setText(String.valueOf(strcX));
-        cO.setText(String.valueOf(strcO));
-
-
-        frame = (FrameLayout) findViewById(R.id.frameLayout);
-        ConstraintLayout.LayoutParams params_lay = (ConstraintLayout.LayoutParams) frame.getLayoutParams();
-
-        if (Logic.countChangeOrientation % 2 == 0) {
-            params_lay.width = 450;
-            params_lay.height = 450;
-
-        } else if (Logic.countChangeOrientation % 2 != 0) {
-            frame.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
-                    FrameLayout.LayoutParams.MATCH_PARENT));
-        }
-
-        frame.setLayoutParams(params_lay);
-        Logic.countChangeOrientation++;
-
-
+        cX.setText(String.valueOf(Logic.winX ));
+        cO.setText(String.valueOf(Logic.winO ));
     }
 }
