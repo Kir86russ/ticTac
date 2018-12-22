@@ -102,12 +102,12 @@ public class PlayField extends View {
 
                 if (Logic.cells.get(i).getKek() == 0) {
 
-                    imageKrestik.setBounds(Logic.cells.get(i).getPoint().x - 85, Logic.cells.get(i).getPoint().y - 85, Logic.cells.get(i).getPoint().x + 85, Logic.cells.get(i).getPoint().y + 85);
+                    imageKrestik.setBounds(Logic.cells.get(i).getX() - 85, Logic.cells.get(i).getY() - 85, Logic.cells.get(i).getX() + 85, Logic.cells.get(i).getY() + 85);
                     imageKrestik.draw(canvas);
 
                 } else {
 
-                    imageNolik.setBounds(Logic.cells.get(i).getPoint().x - 85, Logic.cells.get(i).getPoint().y - 85, Logic.cells.get(i).getPoint().x + 85, Logic.cells.get(i).getPoint().y + 85);
+                    imageNolik.setBounds(Logic.cells.get(i).getX() - 85, Logic.cells.get(i).getY() - 85, Logic.cells.get(i).getX() + 85, Logic.cells.get(i).getY() + 85);
                     imageNolik.draw(canvas);
 
                 }
@@ -119,12 +119,12 @@ public class PlayField extends View {
 
                 if (Logic.cells.get(i).getKek() == 0) {
 
-                    imageKrestik.setBounds(Logic.cells.get(i).getPoint().x - 75, Logic.cells.get(i).getPoint().y - 75, Logic.cells.get(i).getPoint().x + 75, Logic.cells.get(i).getPoint().y + 75);
+                    imageKrestik.setBounds(Logic.cells.get(i).getX() - 75, Logic.cells.get(i).getY() - 75, Logic.cells.get(i).getX() + 75, Logic.cells.get(i).getY() + 75);
                     imageKrestik.draw(canvas);
 
                 } else {
 
-                    imageNolik.setBounds(Logic.cells.get(i).getPoint().x - 62, Logic.cells.get(i).getPoint().y - 62, Logic.cells.get(i).getPoint().x + 62, Logic.cells.get(i).getPoint().y + 62);
+                    imageNolik.setBounds(Logic.cells.get(i).getX() - 62, Logic.cells.get(i).getY() - 62, Logic.cells.get(i).getX() + 62, Logic.cells.get(i).getY() + 62);
                     imageNolik.draw(canvas);
 
                 }

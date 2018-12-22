@@ -1,7 +1,6 @@
 package com.example.myapp;
 
 import android.annotation.SuppressLint;
-import android.graphics.Point;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -28,10 +27,10 @@ public class PlayFieldListener implements View.OnTouchListener {
 
         if (playField.getFlagAboutGrid() == 3) {
 
-            Point checkPoint = reCoordinate3x3(new Point((int) motionEvent.getX(), (int) motionEvent.getY()));
+            Cell checkPoint = reCoordinate3x3(new Cell((int) motionEvent.getX(), (int) motionEvent.getY(), -1)); // -1 потому что не используется
 
 
-            if (!logic.checkInGrid(checkPoint)) {
+            if (checkPoint != null && !logic.isSomethingInCell(checkPoint)) { // null - нажатие на ребро
 
                 switch (motionEvent.getAction()) {
                     case ACTION_DOWN:
@@ -41,7 +40,11 @@ public class PlayFieldListener implements View.OnTouchListener {
                         break;
 
                     case ACTION_UP:
-                        Point point = reCoordinate3x3(new Point((int) startX, (int) startY));
+
+                        Cell point;
+                        if (Logic.countStep % 2 == 0)
+                            point = reCoordinate3x3(new Cell((int) startX, (int) startY, 1));
+                        else point = reCoordinate3x3(new Cell((int) startX, (int) startY, 0));
 
                         if (point != null) {
                             logic.setFieldCell(point);
@@ -53,10 +56,10 @@ public class PlayFieldListener implements View.OnTouchListener {
             }
         } else if (playField.getFlagAboutGrid() == 4) { // bot (3x3)
 
-            Point checkPoint = reCoordinate3x3(new Point((int) motionEvent.getX(), (int) motionEvent.getY()));
+            Cell checkPoint = reCoordinate3x3(new Cell((int) motionEvent.getX(), (int) motionEvent.getY(), -1)); // -1 not usable
 
 
-            if (!logic.checkInGrid(checkPoint)) {
+            if (checkPoint != null && !logic.isSomethingInCell(checkPoint)) {// null - нажатие на ребро
 
                 switch (motionEvent.getAction()) {
                     case ACTION_DOWN:
@@ -66,7 +69,11 @@ public class PlayFieldListener implements View.OnTouchListener {
                         break;
 
                     case ACTION_UP:
-                        Point point = reCoordinate3x3(new Point((int) startX, (int) startY));
+
+                        Cell point;
+                        if (Logic.countStep % 2 == 0)
+                            point = reCoordinate3x3(new Cell((int) startX, (int) startY, 1));
+                        else point = reCoordinate3x3(new Cell((int) startX, (int) startY, 0));
 
                         if (point != null) {
                             logic.setFieldCell(point);
@@ -80,10 +87,10 @@ public class PlayFieldListener implements View.OnTouchListener {
             }
         } else if (playField.getFlagAboutGrid() == 5) {
 
-            Point checkPoint = reCoordinate5x5(new Point((int) motionEvent.getX(), (int) motionEvent.getY()));
+            Cell checkPoint = reCoordinate5x5(new Cell((int) motionEvent.getX(), (int) motionEvent.getY(), -1));    // last parameter not usable
 
 
-            if (!logic.checkInGrid(checkPoint)) {
+            if (checkPoint != null && !logic.isSomethingInCell(checkPoint)) {// null - нажатие на ребро
 
                 switch (motionEvent.getAction()) {
                     case ACTION_DOWN:
@@ -93,7 +100,10 @@ public class PlayFieldListener implements View.OnTouchListener {
                         break;
 
                     case ACTION_UP:
-                        Point point = reCoordinate5x5(new Point((int) startX, (int) startY));
+                        Cell point;
+                        if (Logic.countStep % 2 == 0)
+                            point = reCoordinate5x5(new Cell((int) startX, (int) startY, 1));
+                        else point = reCoordinate5x5(new Cell((int) startX, (int) startY, 0));
 
                         if (point != null) {
                             logic.setFieldCell(point);
@@ -105,10 +115,10 @@ public class PlayFieldListener implements View.OnTouchListener {
             }
         } else if (playField.getFlagAboutGrid() == 6) {
 
-            Point checkPoint = reCoordinate5x5(new Point((int) motionEvent.getX(), (int) motionEvent.getY()));
+            Cell checkPoint = reCoordinate5x5(new Cell((int) motionEvent.getX(), (int) motionEvent.getY(), -1)); // last param no use
 
 
-            if (!logic.checkInGrid(checkPoint)) {
+            if (checkPoint != null && !logic.isSomethingInCell(checkPoint)) {// null - нажатие на ребро
 
                 switch (motionEvent.getAction()) {
                     case ACTION_DOWN:
@@ -118,7 +128,11 @@ public class PlayFieldListener implements View.OnTouchListener {
                         break;
 
                     case ACTION_UP:
-                        Point point = reCoordinate5x5(new Point((int) startX, (int) startY));
+
+                        Cell point;
+                        if (Logic.countStep % 2 == 0)
+                            point = reCoordinate5x5(new Cell((int) startX, (int) startY, 1));
+                        else point = reCoordinate5x5(new Cell((int) startX, (int) startY, 0));
 
                         if (point != null) {
                             logic.setFieldCell(point);
@@ -135,183 +149,183 @@ public class PlayFieldListener implements View.OnTouchListener {
     }
 
 
-    private Point reCoordinate3x3(Point point) {
-        if (point.x > 0 && point.x < 327 && point.y > 0 && point.y < 349) {
-            point.x = 163;
-            point.y = 163;
+    private Cell reCoordinate3x3(Cell point) {
+        if (point.getX() > 0 && point.getX() < 327 && point.getY() > 0 && point.getY() < 349) {
+            point.setX(163);
+            point.setY(163);
             return point;
         }
-        if (point.x > 328 && point.x < 654 && point.y > 0 && point.y < 349) {
-            point.x = 490;
-            point.y = 163;
+        if (point.getX() > 328 && point.getX() < 654 && point.getY() > 0 && point.getY() < 349) {
+            point.setX(490);
+            point.setY(163);
             return point;
         }
-        if (point.x > 655 && point.x < 982 && point.y > 0 && point.y < 349) {
-            point.x = 817;
-            point.y = 163;
+        if (point.getX() > 655 && point.getX() < 982 && point.getY() > 0 && point.getY() < 349) {
+            point.setX(817);
+            point.setY(163);
             return point;
         }
-        if (point.x > 0 && point.x < 327 && point.y > 350 && point.y < 700) {
-            point.x = 163;
-            point.y = 523;
+        if (point.getX() > 0 && point.getX() < 327 && point.getY() > 350 && point.getY() < 700) {
+            point.setX(163);
+            point.setY(523);
             return point;
         }
-        if (point.x > 328 && point.x < 654 && point.y > 350 && point.y < 700) {
-            point.x = 490;
-            point.y = 523;
+        if (point.getX() > 328 && point.getX() < 654 && point.getY() > 350 && point.getY() < 700) {
+            point.setX(490);
+            point.setY(523);
             return point;
         }
-        if (point.x > 655 && point.x < 982 && point.y > 350 && point.y < 700) {
-            point.x = 817;
-            point.y = 523;
+        if (point.getX() > 655 && point.getX() < 982 && point.getY() > 350 && point.getY() < 700) {
+            point.setX(817);
+            point.setY(523);
             return point;
         }
-        if (point.x > 0 && point.x < 327 && point.y > 701 && point.y < 1048) {
-            point.x = 163;
-            point.y = 861;
+        if (point.getX() > 0 && point.getX() < 327 && point.getY() > 701 && point.getY() < 1048) {
+            point.setX(163);
+            point.setY(861);
             return point;
         }
-        if (point.x > 328 && point.x < 654 && point.y > 701 && point.y < 1048) {
-            point.x = 490;
-            point.y = 861;
+        if (point.getX() > 328 && point.getX() < 654 && point.getY() > 701 && point.getY() < 1048) {
+            point.setX(490);
+            point.setY(861);
             return point;
         }
-        if (point.x > 655 && point.x < 982 && point.y > 701 && point.y < 1048) {
-            point.x = 817;
-            point.y = 861;
+        if (point.getX() > 655 && point.getX() < 982 && point.getY() > 701 && point.getY() < 1048) {
+            point.setX(817);
+            point.setY(861);
             return point;
         } else return null;
     }
 
 
-    private Point reCoordinate5x5(Point point) {
-        if (point.x > 13 && point.x < 186 && point.y > 12 && point.y < 196) {
-            point.x = 102;
-            point.y = 104;
+    private Cell reCoordinate5x5(Cell point) {
+        if (point.getX() > 13 && point.getX() < 186 && point.getY() > 12 && point.getY() < 196) {
+            point.setX(102);
+            point.setY(104);
             return point;
         }
-        if (point.x > 209 && point.x < 382 && point.y > 12 && point.y < 196) {
-            point.x = 297;
-            point.y = 104;
+        if (point.getX() > 209 && point.getX() < 382 && point.getY() > 12 && point.getY() < 196) {
+            point.setX(297);
+            point.setY(104);
             return point;
         }
-        if (point.x > 406 && point.x < 582 && point.y > 12 && point.y < 196) {
-            point.x = 496;
-            point.y = 104;
+        if (point.getX() > 406 && point.getX() < 582 && point.getY() > 12 && point.getY() < 196) {
+            point.setX(496);
+            point.setY(104);
             return point;
         }
-        if (point.x > 603 && point.x < 783 && point.y > 12 && point.y < 196) {
-            point.x = 695;
-            point.y = 104;
+        if (point.getX() > 603 && point.getX() < 783 && point.getY() > 12 && point.getY() < 196) {
+            point.setX(695);
+            point.setY(104);
             return point;
         }
-        if (point.x > 802 && point.x < 966 && point.y > 12 && point.y < 196) {
-            point.x = 886;
-            point.y = 104;
-            return point;
-        }
-
-        if (point.x > 13 && point.x < 186 && point.y > 220 && point.y < 411) {
-            point.x = 102;
-            point.y = 312;
-            return point;
-        }
-        if (point.x > 209 && point.x < 382 && point.y > 220 && point.y < 411) {
-            point.x = 297;
-            point.y = 312;
-            return point;
-        }
-        if (point.x > 406 && point.x < 582 && point.y > 220 && point.y < 411) {
-            point.x = 496;
-            point.y = 312;
-            return point;
-        }
-        if (point.x > 603 && point.x < 783 && point.y > 220 && point.y < 411) {
-            point.x = 695;
-            point.y = 312;
-            return point;
-        }
-        if (point.x > 802 && point.x < 966 && point.y > 220 && point.y < 411) {
-            point.x = 886;
-            point.y = 312;
+        if (point.getX() > 802 && point.getX() < 966 && point.getY() > 12 && point.getY() < 196) {
+            point.setX(886);
+            point.setY(104);
             return point;
         }
 
-        if (point.x > 13 && point.x < 186 && point.y > 434 && point.y < 622) {
-            point.x = 102;
-            point.y = 525;
+        if (point.getX() > 13 && point.getX() < 186 && point.getY() > 220 && point.getY() < 411) {
+            point.setX(102);
+            point.setY(312);
             return point;
         }
-        if (point.x > 209 && point.x < 382 && point.y > 434 && point.y < 622) {
-            point.x = 297;
-            point.y = 525;
+        if (point.getX() > 209 && point.getX() < 382 && point.getY() > 220 && point.getY() < 411) {
+            point.setX(297);
+            point.setY(312);
             return point;
         }
-        if (point.x > 406 && point.x < 582 && point.y > 434 && point.y < 622) {
-            point.x = 496;
-            point.y = 525;
+        if (point.getX() > 406 && point.getX() < 582 && point.getY() > 220 && point.getY() < 411) {
+            point.setX(496);
+            point.setY(312);
             return point;
         }
-        if (point.x > 603 && point.x < 783 && point.y > 434 && point.y < 622) {
-            point.x = 695;
-            point.y = 525;
+        if (point.getX() > 603 && point.getX() < 783 && point.getY() > 220 && point.getY() < 411) {
+            point.setX(695);
+            point.setY(312);
             return point;
         }
-        if (point.x > 802 && point.x < 966 && point.y > 434 && point.y < 622) {
-            point.x = 886;
-            point.y = 525;
-            return point;
-        }
-
-        if (point.x > 13 && point.x < 186 && point.y > 645 && point.y < 833) {
-            point.x = 102;
-            point.y = 735;
-            return point;
-        }
-        if (point.x > 209 && point.x < 382 && point.y > 645 && point.y < 833) {
-            point.x = 297;
-            point.y = 735;
-            return point;
-        }
-        if (point.x > 406 && point.x < 582 && point.y > 645 && point.y < 833) {
-            point.x = 496;
-            point.y = 735;
-            return point;
-        }
-        if (point.x > 603 && point.x < 783 && point.y > 645 && point.y < 833) {
-            point.x = 695;
-            point.y = 735;
-            return point;
-        }
-        if (point.x > 802 && point.x < 966 && point.y > 645 && point.y < 833) {
-            point.x = 886;
-            point.y = 735;
+        if (point.getX() > 802 && point.getX() < 966 && point.getY() > 220 && point.getY() < 411) {
+            point.setX(886);
+            point.setY(312);
             return point;
         }
 
-        if (point.x > 13 && point.x < 186 && point.y > 856 && point.y < 1041) {
-            point.x = 102;
-            point.y = 946;
+        if (point.getX() > 13 && point.getX() < 186 && point.getY() > 434 && point.getY() < 622) {
+            point.setX(102);
+            point.setY(525);
             return point;
         }
-        if (point.x > 209 && point.x < 382 && point.y > 856 && point.y < 1041) {
-            point.x = 297;
-            point.y = 946;
+        if (point.getX() > 209 && point.getX() < 382 && point.getY() > 434 && point.getY() < 622) {
+            point.setX(297);
+            point.setY(525);
             return point;
         }
-        if (point.x > 406 && point.x < 582 && point.y > 856 && point.y < 1041) {
-            point.x = 496;
-            point.y = 946;
+        if (point.getX() > 406 && point.getX() < 582 && point.getY() > 434 && point.getY() < 622) {
+            point.setX(496);
+            point.setY(525);
             return point;
         }
-        if (point.x > 603 && point.x < 783 && point.y > 856 && point.y < 1041) {
-            point.x = 695;
-            point.y = 946;
+        if (point.getX() > 603 && point.getX() < 783 && point.getY() > 434 && point.getY() < 622) {
+            point.setX(695);
+            point.setY(525);
             return point;
         }
-        if (point.x > 802 && point.x < 966 && point.y > 856 && point.y < 1041) {
-            point.x = 886;
-            point.y = 946;
+        if (point.getX() > 802 && point.getX() < 966 && point.getY() > 434 && point.getY() < 622) {
+            point.setX(886);
+            point.setY(525);
+            return point;
+        }
+
+        if (point.getX() > 13 && point.getX() < 186 && point.getY() > 645 && point.getY() < 833) {
+            point.setX(102);
+            point.setY(735);
+            return point;
+        }
+        if (point.getX() > 209 && point.getX() < 382 && point.getY() > 645 && point.getY() < 833) {
+            point.setX(297);
+            point.setY(735);
+            return point;
+        }
+        if (point.getX() > 406 && point.getX() < 582 && point.getY() > 645 && point.getY() < 833) {
+            point.setX(496);
+            point.setY(735);
+            return point;
+        }
+        if (point.getX() > 603 && point.getX() < 783 && point.getY() > 645 && point.getY() < 833) {
+            point.setX(695);
+            point.setY(735);
+            return point;
+        }
+        if (point.getX() > 802 && point.getX() < 966 && point.getY() > 645 && point.getY() < 833) {
+            point.setX(886);
+            point.setY(735);
+            return point;
+        }
+
+        if (point.getX() > 13 && point.getX() < 186 && point.getY() > 856 && point.getY() < 1041) {
+            point.setX(102);
+            point.setY(946);
+            return point;
+        }
+        if (point.getX() > 209 && point.getX() < 382 && point.getY() > 856 && point.getY() < 1041) {
+            point.setX(297);
+            point.setY(946);
+            return point;
+        }
+        if (point.getX() > 406 && point.getX() < 582 && point.getY() > 856 && point.getY() < 1041) {
+            point.setX(496);
+            point.setY(946);
+            return point;
+        }
+        if (point.getX() > 603 && point.getX() < 783 && point.getY() > 856 && point.getY() < 1041) {
+            point.setX(695);
+            point.setY(946);
+            return point;
+        }
+        if (point.getX() > 802 && point.getX() < 966 && point.getY() > 856 && point.getY() < 1041) {
+            point.setX(886);
+            point.setY(946);
             return point;
         } else return null;
     }
