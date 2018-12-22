@@ -1,15 +1,12 @@
 package com.example.myapp;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
-import android.support.constraint.Constraints;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
@@ -18,24 +15,15 @@ public class Main2Activity extends AppCompatActivity {
     ConstraintLayout layout;
     FrameLayout frame;
 
-
-    Logic logic = new Logic();
-    Button button; // restart
-
-    Intent intent;
+    Button button;
 
     TextView cX;
     TextView cO;
-
-    static int strcX;
-    static int strcO;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-        intent = new Intent(this, NotificationService.class);//
         setContentView(R.layout.activity_main2);
 
         playField = new PlayField(this, 3);
@@ -51,7 +39,6 @@ public class Main2Activity extends AppCompatActivity {
 
         layout.setBackgroundResource(R.drawable.back_notebook2);
         addListenerOnButton();
-        startService(intent);
     }
 
     @Override

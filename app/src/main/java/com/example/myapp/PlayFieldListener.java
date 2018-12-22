@@ -2,7 +2,6 @@ package com.example.myapp;
 
 import android.annotation.SuppressLint;
 import android.graphics.Point;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -12,11 +11,12 @@ import static android.view.MotionEvent.ACTION_UP;
 public class PlayFieldListener implements View.OnTouchListener {
 
     static int countStep = 0;
-    float startX = 0;
-    float startY = 0;
+    private float startX = 0;
+    private float startY = 0;
 
     private PlayField playField;
     private Logic logic = new Logic();
+    private bot bot = new bot();
 
     PlayFieldListener(PlayField playField) {
         this.playField = playField;
@@ -27,11 +27,12 @@ public class PlayFieldListener implements View.OnTouchListener {
     public boolean onTouch(View view, MotionEvent motionEvent) {
 
 
-        if (playField.flagAboutGrid == 3) {
+        if (playField.getFlagAboutGrid() == 3) {
+
             Point checkPoint = reCoordinate3x3(new Point((int) motionEvent.getX(), (int) motionEvent.getY()));
 
 
-            if (!checkInGrid(checkPoint)) {
+            if (!logic.checkInGrid(checkPoint)) {
 
                 switch (motionEvent.getAction()) {
                     case ACTION_DOWN:
@@ -44,34 +45,87 @@ public class PlayFieldListener implements View.OnTouchListener {
                         Point point = reCoordinate3x3(new Point((int) startX, (int) startY));
 
                         if (point != null) {
-                            setFieldCell(point);
+                            logic.setFieldCell(point);
                             playField.invalidate();
                             if (logic.checkWin3x3()) playField.setClickable(false);
                         }
                         break;
                 }
             }
-        } else if (playField.flagAboutGrid == 5) {
+        } else if (playField.getFlagAboutGrid() == 4) { // bot (3x3)
 
-            Point checkPoint = reCoordinate5x5(new Point((int) motionEvent.getX(), (int) motionEvent.getY()));
+            Point checkPoint = reCoordinate3x3(new Point((int) motionEvent.getX(), (int) motionEvent.getY()));
 
 
-            if (!checkInGrid(checkPoint)) {
+            if (!logic.checkInGrid(checkPoint)) {
 
                 switch (motionEvent.getAction()) {
                     case ACTION_DOWN:
 
                         startX = motionEvent.getX();
                         startY = motionEvent.getY();
-                        System.out.println(startX + " = startX " + startY + " = startY  " + "<=============================");
+                        break;
+
+                    case ACTION_UP:
+                        Point point = reCoordinate3x3(new Point((int) startX, (int) startY));
+
+                        if (point != null) {
+                            logic.setFieldCell(point);
+                            playField.invalidate();
+                            if (logic.checkWin3x3()) playField.setClickable(false);
+                            else bot.goBy3x3();
+                            if (logic.checkWin3x3()) playField.setClickable(false);
+                        }
+                        break;
+                }
+            }
+        } else if (playField.getFlagAboutGrid() == 5) {
+
+            Point checkPoint = reCoordinate5x5(new Point((int) motionEvent.getX(), (int) motionEvent.getY()));
+
+
+            if (!logic.checkInGrid(checkPoint)) {
+
+                switch (motionEvent.getAction()) {
+                    case ACTION_DOWN:
+
+                        startX = motionEvent.getX();
+                        startY = motionEvent.getY();
                         break;
 
                     case ACTION_UP:
                         Point point = reCoordinate5x5(new Point((int) startX, (int) startY));
 
                         if (point != null) {
-                            setFieldCell(point);
+                            logic.setFieldCell(point);
                             playField.invalidate();
+                            if (logic.checkWin5x5()) playField.setClickable(false);
+                        }
+                        break;
+                }
+            }
+        } else if (playField.getFlagAboutGrid() == 6) {
+
+            Point checkPoint = reCoordinate5x5(new Point((int) motionEvent.getX(), (int) motionEvent.getY()));
+
+
+            if (!logic.checkInGrid(checkPoint)) {
+
+                switch (motionEvent.getAction()) {
+                    case ACTION_DOWN:
+
+                        startX = motionEvent.getX();
+                        startY = motionEvent.getY();
+                        break;
+
+                    case ACTION_UP:
+                        Point point = reCoordinate5x5(new Point((int) startX, (int) startY));
+
+                        if (point != null) {
+                            logic.setFieldCell(point);
+                            playField.invalidate();
+                            if (logic.checkWin5x5()) playField.setClickable(false);
+                            else bot.goBy5x5();
                             if (logic.checkWin5x5()) playField.setClickable(false);
                         }
                         break;
@@ -81,32 +135,6 @@ public class PlayFieldListener implements View.OnTouchListener {
         return false;
     }
 
-
-    static boolean checkInGrid(Point point) {
-        for (int i = 0; i != PlayField.cells.size(); i++) {
-            if (PlayField.cells != null)
-                if (PlayField.cells.get(i).point.equals(point)) return true;
-        }
-        return false;
-    }
-
-    static int checkInGridKek(Point point) {
-        for (int i = 0; i != PlayField.cells.size(); i++) {
-            if (PlayField.cells != null)
-                if (PlayField.cells.get(i).point.equals(point))
-                    return PlayField.cells.get(i).kek;
-        }
-        return -1;
-    }
-
-    private void setFieldCell(Point point) {    // ИЗ PORTRAIT
-        if (countStep % 2 == 0)
-            PlayField.cells.add(new Cell(point, 1));
-
-        else
-            PlayField.cells.add(new Cell(point, 0));
-
-    }
 
     private Point reCoordinate3x3(Point point) {
         if (point.x > 0 && point.x < 327 && point.y > 0 && point.y < 349) {
@@ -286,8 +314,7 @@ public class PlayFieldListener implements View.OnTouchListener {
             point.x = 886;
             point.y = 946;
             return point;
-        }
-        else return null;
+        } else return null;
     }
 
 }

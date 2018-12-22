@@ -2,13 +2,20 @@ package com.example.myapp;
 
 import android.graphics.Point;
 
-public class Cell {
+class Cell {
 
-    int kek; // 0 -> nolik, 1 -> krestik
-    Point point;
+    private int kek; // 1 -> nolik, 0 -> krestik
+    private Point point;
 
+    int getKek() {
+        return kek;
+    }
 
-    Cell(Point point, int kek){
+    public Point getPoint() {
+        return point;
+    }
+
+    Cell(Point point, int kek) {
         this.point = point;
         this.kek = kek;
 

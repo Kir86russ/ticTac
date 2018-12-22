@@ -6,34 +6,32 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
-import android.support.constraint.ConstraintLayout;
-import android.util.Log;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 // https://online-fotoshop.ru/ubrat-fon-online/
-import java.util.ArrayList;
 
 @SuppressLint("ViewConstructor")
 public class PlayField extends View {
 
-    int flagAboutGrid; // 3 - 3x3, 5 - 5x5
+    public int getFlagAboutGrid() {
+        return flagAboutGrid;
+    }
+
+    private int flagAboutGrid; // 3 - 3x3, 5 - 5x5
 
     TextView cX;
     TextView cO;
 
     Drawable imageKrestik = getResources().getDrawable(R.drawable.xxx);
     Drawable imageNolik = getResources().getDrawable(R.drawable.nullik);
+    
 
-
-    public static ArrayList<Cell> cells = new ArrayList<>();
-
-    Logic logic = new Logic();
+    private Logic logic = new Logic();
 
 
     Context context;
-    Paint paint = new Paint();
+    private Paint paint = new Paint();
 
     public PlayField(Context context, int flagAboutGrid) {
         super(context);
@@ -41,13 +39,18 @@ public class PlayField extends View {
         this.flagAboutGrid = flagAboutGrid;
 
 
-
         if (flagAboutGrid == 3) {
             cX = ((Main2Activity) context).findViewById(R.id.countWinX);
             cO = ((Main2Activity) context).findViewById(R.id.countWinO);
+        } else if (flagAboutGrid == 4) {
+            cX = ((Main2Activity_bot) context).findViewById(R.id.countWinX);
+            cO = ((Main2Activity_bot) context).findViewById(R.id.countWinO);
         } else if (flagAboutGrid == 5) {
             cX = ((Main3Activity) context).findViewById(R.id.countWinX);
             cO = ((Main3Activity) context).findViewById(R.id.countWinO);
+        } else if (flagAboutGrid == 6) {
+            cX = ((Main3Activity_bot) context).findViewById(R.id.countWinX);
+            cO = ((Main3Activity_bot) context).findViewById(R.id.countWinO);
         }
 
         this.setClickable(true);
@@ -63,13 +66,13 @@ public class PlayField extends View {
     }
 
     public void restartGame() {
-        cells.clear();
+        Logic.cells.clear();
         Logic.flagTeamWin = 0;
         invalidate();
     }
 
     public void exitGame() {
-        cells.clear();
+        Logic.cells.clear();
         Logic.winX = 0;
         Logic.winO = 0;
         Logic.flagTeamWin = 0;
@@ -93,34 +96,35 @@ public class PlayField extends View {
             this.setClickable(false); // если победа на доске нарисована
         }
         /* build x|o */
-        if (this.flagAboutGrid == 3) {
-            for (int i = 0; i != cells.size(); i++) {
+        if (this.flagAboutGrid == 3 || this.flagAboutGrid == 4) {
 
-                if (cells.get(i).kek == 0) {
+            for (int i = 0; i != Logic.cells.size(); i++) {
 
-                    imageKrestik.setBounds(cells.get(i).point.x - 85, cells.get(i).point.y - 85, cells.get(i).point.x + 85, cells.get(i).point.y + 85);
+                if (Logic.cells.get(i).getKek() == 0) {
+
+                    imageKrestik.setBounds(Logic.cells.get(i).getPoint().x - 85, Logic.cells.get(i).getPoint().y - 85, Logic.cells.get(i).getPoint().x + 85, Logic.cells.get(i).getPoint().y + 85);
                     imageKrestik.draw(canvas);
 
                 } else {
 
-                    imageNolik.setBounds(cells.get(i).point.x - 85, cells.get(i).point.y - 85, cells.get(i).point.x + 85, cells.get(i).point.y + 85);
+                    imageNolik.setBounds(Logic.cells.get(i).getPoint().x - 85, Logic.cells.get(i).getPoint().y - 85, Logic.cells.get(i).getPoint().x + 85, Logic.cells.get(i).getPoint().y + 85);
                     imageNolik.draw(canvas);
 
                 }
             }
         }
 
-        if (this.flagAboutGrid == 5) {
-            for (int i = 0; i != cells.size(); i++) {
+        if (this.flagAboutGrid == 5 || this.flagAboutGrid == 6) {
+            for (int i = 0; i != Logic.cells.size(); i++) {
 
-                if (cells.get(i).kek == 0) {
+                if (Logic.cells.get(i).getKek() == 0) {
 
-                    imageKrestik.setBounds(cells.get(i).point.x - 75, cells.get(i).point.y - 75, cells.get(i).point.x + 75, cells.get(i).point.y + 75);
+                    imageKrestik.setBounds(Logic.cells.get(i).getPoint().x - 75, Logic.cells.get(i).getPoint().y - 75, Logic.cells.get(i).getPoint().x + 75, Logic.cells.get(i).getPoint().y + 75);
                     imageKrestik.draw(canvas);
 
                 } else {
 
-                    imageNolik.setBounds(cells.get(i).point.x - 62, cells.get(i).point.y - 62, cells.get(i).point.x + 62, cells.get(i).point.y + 62);
+                    imageNolik.setBounds(Logic.cells.get(i).getPoint().x - 62, Logic.cells.get(i).getPoint().y - 62, Logic.cells.get(i).getPoint().x + 62, Logic.cells.get(i).getPoint().y + 62);
                     imageNolik.draw(canvas);
 
                 }
@@ -132,7 +136,7 @@ public class PlayField extends View {
         PlayFieldListener.countStep++;
 
 
-        if (this.flagAboutGrid == 3 && logic.checkWin3x3()) {
+        if ((this.flagAboutGrid == 3 || this.flagAboutGrid == 4) && logic.checkWin3x3()) {
 
             paint.setColor(Color.BLUE);
             paint.setStrokeWidth(20);
@@ -224,7 +228,7 @@ public class PlayField extends View {
         }
 
 
-        if (this.flagAboutGrid == 5 && logic.checkWin5x5()) {
+        if ((this.flagAboutGrid == 5 || this.flagAboutGrid == 6) && logic.checkWin5x5()) {
 
             paint.setColor(Color.BLUE);
             paint.setStrokeWidth(15);

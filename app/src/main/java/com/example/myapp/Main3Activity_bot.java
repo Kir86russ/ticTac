@@ -10,7 +10,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 
-public class Main3Activity extends AppCompatActivity {
+public class Main3Activity_bot extends AppCompatActivity {
     PlayField playField;
     ConstraintLayout layout;
     FrameLayout frame;
@@ -24,11 +24,12 @@ public class Main3Activity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main3);
+        setContentView(R.layout.activity_main3_bot);
 
-        playField = new PlayField(this, 5);
+        playField = new PlayField(this, 6); // vs bot (5x5)
 
         layout = (ConstraintLayout) findViewById(R.id.q);
+
 
         frame = (FrameLayout) findViewById(R.id.frameLayout);
 
@@ -38,7 +39,6 @@ public class Main3Activity extends AppCompatActivity {
 
         layout.setBackgroundResource(R.drawable.back_notebook2);
         addListenerOnButton();
-
     }
 
     @Override
@@ -75,7 +75,6 @@ public class Main3Activity extends AppCompatActivity {
         if (Logic.flagTeamWin == 2) Logic.winO--;
 
         PlayFieldListener.countStep--;
-
     }
 
     @Override
@@ -85,7 +84,7 @@ public class Main3Activity extends AppCompatActivity {
         cX = findViewById(R.id.countWinX);
         cO = findViewById(R.id.countWinO);
 
-        cX.setText(String.valueOf(Logic.winX));
-        cO.setText(String.valueOf(Logic.winO));
+        cX.setText(String.valueOf(Logic.winX ));
+        cO.setText(String.valueOf(Logic.winO ));
     }
 }

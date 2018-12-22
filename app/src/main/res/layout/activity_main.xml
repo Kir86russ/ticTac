@@ -14,7 +14,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Режим 5x5"
+        android:text="vs computer"
         android:textSize="18sp"
         app:fontFamily="serif" />
 
@@ -23,11 +23,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-    <Button
-        android:id="@+id/play"
-        android:layout_width="104dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:text="Играть"/>
+    <LinearLayout
+        android:layout_width="321dp"
+        android:layout_height="99dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="play\n3x3" />
+
+        <Button
+            android:id="@+id/play5x5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="play\n5x5" />
+    </LinearLayout>
 
 </LinearLayout>
