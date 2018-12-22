@@ -21,7 +21,7 @@ class bot {
 
     void goBy3x3() {
 
-        if (PlayFieldListener.countStep != 9) {
+        if (Logic.countStep != 9) {
 
             int index;
 
@@ -31,7 +31,7 @@ class bot {
             while (logic.checkInGrid(arrO3x3[index].getPoint()) || logic.checkInGrid(arrX3x3[index].getPoint()));
 
             Logic.cells.add(arrO3x3[index]);
-            PlayFieldListener.countStep++;
+            Logic.countStep++;
         }
     }
 
@@ -54,7 +54,7 @@ class bot {
 
     void goBy5x5() {
 
-        if (PlayFieldListener.countStep != 25) {
+        if (Logic.countStep != 25) {
 
             int index;
 
@@ -64,7 +64,7 @@ class bot {
             while (logic.checkInGrid(arrO5x5[index].getPoint()) || logic.checkInGrid(arrX5x5[index].getPoint()));
 
             Logic.cells.add(arrO5x5[index]);
-            PlayFieldListener.countStep++;
+            Logic.countStep++;
         }
     }
 }

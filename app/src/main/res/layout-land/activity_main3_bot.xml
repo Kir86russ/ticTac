@@ -53,10 +53,10 @@
 
         <ImageView
             android:id="@+id/imageView8"
-            android:layout_width="34dp"
+            android:layout_width="52dp"
             android:layout_height="36dp"
             android:layout_weight="1"
-            app:srcCompat="@drawable/o_nof" />
+            app:srcCompat="@drawable/benderman" />
     </LinearLayout>
 
     <LinearLayout

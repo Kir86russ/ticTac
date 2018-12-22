@@ -11,6 +11,7 @@ class Logic {
     static int winX = 0;
     static int winO = 0;
     static int flagTeamWin = 0; // 1-x, 2-o
+    static int countStep = 0;
     int[] arrWin = new int[1];
 
 
@@ -503,7 +504,7 @@ class Logic {
     }
 
     void setFieldCell(Point point) {
-        if (PlayFieldListener.countStep % 2 == 0)
+        if (Logic.countStep % 2 == 0)
             cells.add(new Cell(point, 1));
 
         else

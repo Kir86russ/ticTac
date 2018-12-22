@@ -10,7 +10,6 @@ import static android.view.MotionEvent.ACTION_UP;
 
 public class PlayFieldListener implements View.OnTouchListener {
 
-    static int countStep = 0;
     private float startX = 0;
     private float startY = 0;
 

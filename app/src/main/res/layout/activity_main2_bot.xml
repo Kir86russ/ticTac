@@ -58,7 +58,7 @@
             android:layout_width="363dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:srcCompat="@drawable/bender" />
+            app:srcCompat="@drawable/benderman" />
     </LinearLayout>
 
     <LinearLayout

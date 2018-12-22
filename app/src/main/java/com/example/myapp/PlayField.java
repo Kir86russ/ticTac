@@ -76,7 +76,7 @@ public class PlayField extends View {
         Logic.winX = 0;
         Logic.winO = 0;
         Logic.flagTeamWin = 0;
-        PlayFieldListener.countStep = 0;
+        Logic.countStep = 0;
 
     }
 
@@ -133,7 +133,7 @@ public class PlayField extends View {
         }
 
 
-        PlayFieldListener.countStep++;
+        Logic.countStep++;
 
 
         if ((this.flagAboutGrid == 3 || this.flagAboutGrid == 4) && logic.checkWin3x3()) {

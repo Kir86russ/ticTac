@@ -59,7 +59,7 @@ public class Main3Activity_bot extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         playField.setClickable(true);
-                        PlayFieldListener.countStep = 0;
+                        Logic.countStep = 0;
                         playField.restartGame();
                     }
                 }
@@ -74,7 +74,7 @@ public class Main3Activity_bot extends AppCompatActivity {
         if (Logic.flagTeamWin == 1) Logic.winX--;
         if (Logic.flagTeamWin == 2) Logic.winO--;
 
-        PlayFieldListener.countStep--;
+        Logic.countStep--;
     }
 
     @Override
