@@ -14,7 +14,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="vs computer"
+        android:text="@string/vs_computer"
         android:textSize="18sp"
         app:fontFamily="serif" />
 
@@ -34,14 +34,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="play\n3x3" />
+            android:text="@string/play_n3x3" />
 
         <Button
             android:id="@+id/play5x5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="play\n5x5" />
+            android:text="@string/play_n5x5" />
     </LinearLayout>
 
 </LinearLayout>

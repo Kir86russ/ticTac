@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 
 public class LogicTest {
 
-    private Logic logic = new Logic();
+    private final Logic logic = new Logic();
 
     @Test
     public void checkWin3x3test() {

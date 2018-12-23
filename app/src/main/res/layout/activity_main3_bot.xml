@@ -29,7 +29,7 @@
         android:layout_width="112dp"
         android:layout_height="47dp"
         android:layout_marginBottom="42dp"
-        android:text="Заново"
+        android:text="@string/restart"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,14 +51,16 @@
             android:layout_width="381dp"
             android:layout_height="46dp"
             android:layout_weight="1"
-            app:srcCompat="@drawable/x_nof" />
+            app:srcCompat="@drawable/x_nof"
+            android:contentDescription="@string/todo" />
 
         <ImageView
             android:id="@+id/imageView8"
             android:layout_width="363dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:srcCompat="@drawable/benderman" />
+            app:srcCompat="@drawable/benderman"
+            android:contentDescription="@string/todo" />
     </LinearLayout>
 
     <LinearLayout
@@ -80,7 +82,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="0"
+            android:text="@string/_0"
             android:textColor="@color/colorAccent"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -91,7 +93,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="0"
+            android:text="@string/_0"
             android:textColor="@color/colorAccent"
             android:textSize="24sp"
             android:textStyle="bold" />

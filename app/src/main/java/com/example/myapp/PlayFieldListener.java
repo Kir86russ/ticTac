@@ -7,14 +7,14 @@ import android.view.View;
 import static android.view.MotionEvent.ACTION_DOWN;
 import static android.view.MotionEvent.ACTION_UP;
 
-public class PlayFieldListener implements View.OnTouchListener {
+class PlayFieldListener implements View.OnTouchListener {
 
     private float startX = 0;
     private float startY = 0;
 
-    private PlayField playField;
-    private Logic logic = new Logic();
-    private bot bot = new bot();
+    private final PlayField playField;
+    private final Logic logic = new Logic();
+    private final bot bot = new bot();
 
     PlayFieldListener(PlayField playField) {
         this.playField = playField;
@@ -30,7 +30,7 @@ public class PlayFieldListener implements View.OnTouchListener {
             Cell checkPoint = reCoordinate3x3(new Cell((int) motionEvent.getX(), (int) motionEvent.getY(), -1)); // -1 потому что не используется
 
 
-            if (checkPoint != null && !logic.isSomethingInCell(checkPoint)) { // null - нажатие на ребро
+            if (checkPoint != null && logic.isEmptyOnCell(checkPoint)) { // null - нажатие на ребро
 
                 switch (motionEvent.getAction()) {
                     case ACTION_DOWN:
@@ -59,7 +59,7 @@ public class PlayFieldListener implements View.OnTouchListener {
             Cell checkPoint = reCoordinate3x3(new Cell((int) motionEvent.getX(), (int) motionEvent.getY(), -1)); // -1 not usable
 
 
-            if (checkPoint != null && !logic.isSomethingInCell(checkPoint)) {// null - нажатие на ребро
+            if (checkPoint != null && logic.isEmptyOnCell(checkPoint)) {// null - нажатие на ребро
 
                 switch (motionEvent.getAction()) {
                     case ACTION_DOWN:
@@ -90,7 +90,7 @@ public class PlayFieldListener implements View.OnTouchListener {
             Cell checkPoint = reCoordinate5x5(new Cell((int) motionEvent.getX(), (int) motionEvent.getY(), -1));    // last parameter not usable
 
 
-            if (checkPoint != null && !logic.isSomethingInCell(checkPoint)) {// null - нажатие на ребро
+            if (checkPoint != null && logic.isEmptyOnCell(checkPoint)) {// null - нажатие на ребро
 
                 switch (motionEvent.getAction()) {
                     case ACTION_DOWN:
@@ -118,7 +118,7 @@ public class PlayFieldListener implements View.OnTouchListener {
             Cell checkPoint = reCoordinate5x5(new Cell((int) motionEvent.getX(), (int) motionEvent.getY(), -1)); // last param no use
 
 
-            if (checkPoint != null && !logic.isSomethingInCell(checkPoint)) {// null - нажатие на ребро
+            if (checkPoint != null && logic.isEmptyOnCell(checkPoint)) {// null - нажатие на ребро
 
                 switch (motionEvent.getAction()) {
                     case ACTION_DOWN:

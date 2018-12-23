@@ -11,14 +11,14 @@ import android.widget.TextView;
 
 
 public class Main2Activity extends AppCompatActivity {
-    PlayField playField;
-    ConstraintLayout layout;
-    FrameLayout frame;
+    private PlayField playField;
+    private ConstraintLayout layout;
+    private FrameLayout frame;
 
-    Button button;
+    private Button button;
 
-    TextView cX;
-    TextView cO;
+    private TextView cX;
+    private TextView cO;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -28,10 +28,10 @@ public class Main2Activity extends AppCompatActivity {
 
         playField = new PlayField(this, 3);
 
-        layout = (ConstraintLayout) findViewById(R.id.q);
+        layout = findViewById(R.id.q);
 
 
-        frame = (FrameLayout) findViewById(R.id.frameLayout);
+        frame = findViewById(R.id.frameLayout);
 
         frame.setBackgroundResource(R.drawable.grido);
 
@@ -51,7 +51,7 @@ public class Main2Activity extends AppCompatActivity {
     }
 
 
-    public void addListenerOnButton() {
+    private void addListenerOnButton() {
         button = findViewById(R.id.button);
 
         button.setOnClickListener(
@@ -84,7 +84,7 @@ public class Main2Activity extends AppCompatActivity {
         cX = findViewById(R.id.countWinX);
         cO = findViewById(R.id.countWinO);
 
-        cX.setText(String.valueOf(Logic.winX ));
-        cO.setText(String.valueOf(Logic.winO ));
+        cX.setText(String.valueOf(Logic.winX));
+        cO.setText(String.valueOf(Logic.winO));
     }
 }

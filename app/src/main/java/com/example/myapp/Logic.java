@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 class Logic {
 
-    static ArrayList<Cell> cells = new ArrayList<>();
+    static final ArrayList<Cell> cells = new ArrayList<>();
 
     static int winX = 0;
     static int winO = 0;
     static int flagTeamWin = 0; // 1-x, 2-o
     static int countStep = 0;
-    int[] arrWin = new int[1];
+    final int[] arrWin = new int[1];
 
 
 
@@ -239,7 +239,7 @@ class Logic {
 
     boolean checkWin5x5() {
 
-       /* Проверка на победу ноликов, горизонтальный ряд*/
+        /* Проверка на победу ноликов, горизонтальный ряд*/
         if (checkInGrid(new Cell(102, 104, 1)) && checkInGrid(new Cell(297, 104, 1)) && checkInGrid(new Cell(496, 104, 1)) && checkInGrid(new Cell(695, 104, 1)) && checkInGrid(new Cell(886, 104, 1))) {
             arrWin[0] = 1;
             flagTeamWin = 2;
@@ -405,13 +405,13 @@ class Logic {
         return false;
     }
 
-    boolean isSomethingInCell(Cell cell) {
+    boolean isEmptyOnCell(Cell cell) {
         for (int i = 0; i != Logic.cells.size(); i++) {
             if (Logic.cells.get(i) != null)
                 if (Logic.cells.get(i).getX() == cell.getX() && Logic.cells.get(i).getY() == cell.getY())
-                    return true;
+                    return false;
         }
-        return false;
+        return true;
     }
 
     void setFieldCell(Cell point) {

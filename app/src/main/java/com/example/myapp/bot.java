@@ -4,18 +4,18 @@ import java.util.Random;
 
 class bot {
 
-    private Logic logic = new Logic();
+    private final Logic logic = new Logic();
 
-    private Cell arrO3x3[] = {new Cell(163, 163, 1), new Cell(490, 163, 1), new Cell(817, 163, 1),
+    private final Cell arrO3x3[] = {new Cell(163, 163, 1), new Cell(490, 163, 1), new Cell(817, 163, 1),
                               new Cell(163, 523, 1), new Cell(490, 523, 1), new Cell(817, 523, 1),
                               new Cell(163, 861, 1), new Cell(490, 861, 1), new Cell(817, 861, 1)};
 
-    private Cell arrX3x3[] = {new Cell(163, 163, 0), new Cell(490, 163, 0), new Cell(817, 163, 0),
+    private final Cell arrX3x3[] = {new Cell(163, 163, 0), new Cell(490, 163, 0), new Cell(817, 163, 0),
                               new Cell(163, 523, 0), new Cell(490, 523, 0), new Cell(817, 523, 0),
                               new Cell(163, 861, 0), new Cell(490, 861, 0), new Cell(817, 861, 0)};
 
 
-    private Random random = new Random();
+    private final Random random = new Random();
 
 
     void goBy3x3() {
@@ -35,7 +35,7 @@ class bot {
     }
 
 
-    private Cell arrO5x5[] = {new Cell(102, 104, 1), new Cell(297, 104, 1), new Cell(496, 104, 1), new Cell(695, 104, 1), new Cell(886, 104, 1),
+    private final Cell arrO5x5[] = {new Cell(102, 104, 1), new Cell(297, 104, 1), new Cell(496, 104, 1), new Cell(695, 104, 1), new Cell(886, 104, 1),
                               new Cell(102, 312, 1), new Cell(297, 312, 1), new Cell(496, 312, 1), new Cell(695, 312, 1), new Cell(886, 312, 1),
                               new Cell(102, 525, 1), new Cell(297, 525, 1), new Cell(496, 525, 1), new Cell(695, 525, 1), new Cell(886, 525, 1),
                               new Cell(102, 735, 1), new Cell(297, 735, 1), new Cell(496, 735, 1), new Cell(695, 735, 1), new Cell(886, 735, 1),
@@ -43,7 +43,7 @@ class bot {
 
 
 
-    private Cell arrX5x5[] = {new Cell(102, 104, 0), new Cell(297, 104, 0), new Cell(496, 104, 0), new Cell(695, 104, 0), new Cell(886, 104, 0),
+    private final Cell arrX5x5[] = {new Cell(102, 104, 0), new Cell(297, 104, 0), new Cell(496, 104, 0), new Cell(695, 104, 0), new Cell(886, 104, 0),
                               new Cell(102, 312, 0), new Cell(297, 312, 0), new Cell(496, 312, 0), new Cell(695, 312, 0), new Cell(886, 312, 0),
                               new Cell(102, 525, 0), new Cell(297, 525, 0), new Cell(496, 525, 0), new Cell(695, 525, 0), new Cell(886, 525, 0),
                               new Cell(102, 735, 0), new Cell(297, 735, 0), new Cell(496, 735, 0), new Cell(695, 735, 0), new Cell(886, 735, 0),

@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void addListenerOnSwitch() {
+    private void addListenerOnSwitch() {
         Switch aSwitch = findViewById(R.id.switch2);
 
         aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void addListenerOnButton() {
+    private void addListenerOnButton() {
         Button button3x3 = findViewById(R.id.play);
         Button button5x5 = findViewById(R.id.play5x5);
 
@@ -43,8 +43,7 @@ public class MainActivity extends AppCompatActivity {
                         if (flagOnSwitch) {
                             Intent intent3x3_bot = new Intent(getApplicationContext(), Main2Activity_bot.class);
                             startActivity(intent3x3_bot);
-                        }
-                        else {
+                        } else {
                             Intent intent3x3 = new Intent(getApplicationContext(), Main2Activity.class);
                             startActivity(intent3x3);
                         }
@@ -59,8 +58,7 @@ public class MainActivity extends AppCompatActivity {
                         if (flagOnSwitch) {
                             Intent intent5x5 = new Intent(getApplicationContext(), Main3Activity_bot.class);
                             startActivity(intent5x5);
-                        }
-                        else {
+                        } else {
                             Intent intent5x5 = new Intent(getApplicationContext(), Main3Activity.class);
                             startActivity(intent5x5);
                         }

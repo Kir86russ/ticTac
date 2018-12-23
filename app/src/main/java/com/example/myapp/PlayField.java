@@ -18,20 +18,20 @@ public class PlayField extends View {
         return flagAboutGrid;
     }
 
-    private int flagAboutGrid; // 3 - 3x3, 5 - 5x5
+    private final int flagAboutGrid; // 3 - 3x3, 5 - 5x5
 
-    TextView cX;
-    TextView cO;
+    private TextView cX;
+    private TextView cO;
 
-    Drawable imageKrestik = getResources().getDrawable(R.drawable.xxx);
-    Drawable imageNolik = getResources().getDrawable(R.drawable.nullik);
-    
-
-    private Logic logic = new Logic();
+    private final Drawable imageKrestik = getResources().getDrawable(R.drawable.xxx);
+    private final Drawable imageNolik = getResources().getDrawable(R.drawable.nullik);
 
 
-    Context context;
-    private Paint paint = new Paint();
+    private final Logic logic = new Logic();
+
+
+    private final Context context;
+    private final Paint paint = new Paint();
 
     public PlayField(Context context, int flagAboutGrid) {
         super(context);
@@ -61,7 +61,7 @@ public class PlayField extends View {
     }
 
 
-    public void startGame() {
+    private void startGame() {
         invalidate();
     }
 
