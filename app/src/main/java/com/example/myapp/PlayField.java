@@ -3,7 +3,6 @@ package com.example.myapp;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.view.View;
@@ -14,18 +13,19 @@ import android.widget.TextView;
 @SuppressLint("ViewConstructor")
 public class PlayField extends View {
 
-    public int getFlagAboutGrid() {
-        return flagAboutGrid;
+    enum InfoAboutGrid {_3x3, _5x5, _3x3_bot, _5x5_bot}
+
+    public InfoAboutGrid getInfoAboutGrid() {
+        return infoAboutGrid;
     }
 
-    private final int flagAboutGrid; // 3 - 3x3, 5 - 5x5
+    private InfoAboutGrid infoAboutGrid;
 
     private TextView cX;
     private TextView cO;
 
-    private final Drawable imageKrestik = getResources().getDrawable(R.drawable.xxx);
-    private final Drawable imageNolik = getResources().getDrawable(R.drawable.nullik);
-
+    private final Drawable imageTic = getResources().getDrawable(R.drawable.xxx);
+    private final Drawable imageTac = getResources().getDrawable(R.drawable.nullik);
 
     private final Logic logic = new Logic();
 
@@ -33,28 +33,15 @@ public class PlayField extends View {
     private final Context context;
     private final Paint paint = new Paint();
 
-    public PlayField(Context context, int flagAboutGrid) {
+    public PlayField(Context context, InfoAboutGrid infoAboutGrid, TextView countWinX, TextView countWinO) {
         super(context);
+
         this.context = context;
-        this.flagAboutGrid = flagAboutGrid;
-
-
-        if (flagAboutGrid == 3) {
-            cX = ((Main2Activity) context).findViewById(R.id.countWinX);
-            cO = ((Main2Activity) context).findViewById(R.id.countWinO);
-        } else if (flagAboutGrid == 4) {
-            cX = ((Main2Activity_bot) context).findViewById(R.id.countWinX);
-            cO = ((Main2Activity_bot) context).findViewById(R.id.countWinO);
-        } else if (flagAboutGrid == 5) {
-            cX = ((Main3Activity) context).findViewById(R.id.countWinX);
-            cO = ((Main3Activity) context).findViewById(R.id.countWinO);
-        } else if (flagAboutGrid == 6) {
-            cX = ((Main3Activity_bot) context).findViewById(R.id.countWinX);
-            cO = ((Main3Activity_bot) context).findViewById(R.id.countWinO);
-        }
+        this.infoAboutGrid = infoAboutGrid;
+        this.cX = countWinX;
+        this.cO = countWinO;
 
         this.setClickable(true);
-
         this.setOnTouchListener(new PlayFieldListener(this));
 
         startGame();
@@ -67,7 +54,7 @@ public class PlayField extends View {
 
     public void restartGame() {
         Logic.cells.clear();
-        Logic.flagTeamWin = 0;
+        Logic.infoTeamWin = null;
         invalidate();
     }
 
@@ -75,7 +62,7 @@ public class PlayField extends View {
         Logic.cells.clear();
         Logic.winX = 0;
         Logic.winO = 0;
-        Logic.flagTeamWin = 0;
+        Logic.infoTeamWin = null;
         Logic.countStep = 0;
 
     }
@@ -85,47 +72,60 @@ public class PlayField extends View {
         return super.performClick();
     }
 
-
-    @SuppressLint("DrawAllocation")
     @Override
     protected void onDraw(Canvas canvas) {
 
+        int dx;
+        int dy;
+
         super.onDraw(canvas);
 
-        if (Logic.flagTeamWin != 0) {
+        if (Logic.infoTeamWin != null) {
             this.setClickable(false); // если победа на доске нарисована
         }
+
         /* build x|o */
-        if (this.flagAboutGrid == 3 || this.flagAboutGrid == 4) {
+        if (this.infoAboutGrid == InfoAboutGrid._3x3 || this.infoAboutGrid == InfoAboutGrid._3x3_bot) {
+
+            final int shift = this.getWidth() / 12;
 
             for (int i = 0; i != Logic.cells.size(); i++) {
 
-                if (Logic.cells.get(i).getKek() == 0) {
+                dx = Logic.cells.get(i).getX();
+                dy = Logic.cells.get(i).getY();
 
-                    imageKrestik.setBounds(Logic.cells.get(i).getX() - 85, Logic.cells.get(i).getY() - 85, Logic.cells.get(i).getX() + 85, Logic.cells.get(i).getY() + 85);
-                    imageKrestik.draw(canvas);
+                if (Logic.cells.get(i).state == Cell.State.TIC) {
 
-                } else {
+                    imageTic.setBounds(this.getWidth() / 6 * (2 * dx - 1) - shift, this.getHeight() / 6 * (2 * dy - 1) - shift, this.getWidth() / 6 * (2 * dx - 1) + shift, this.getHeight() / 6 * (2 * dy - 1) + shift);
+                    imageTic.draw(canvas);
 
-                    imageNolik.setBounds(Logic.cells.get(i).getX() - 85, Logic.cells.get(i).getY() - 85, Logic.cells.get(i).getX() + 85, Logic.cells.get(i).getY() + 85);
-                    imageNolik.draw(canvas);
+                } else if (Logic.cells.get(i).state == Cell.State.TAC) {
+
+                    imageTac.setBounds(this.getWidth() / 6 * (2 * dx - 1) - shift, this.getHeight() / 6 * (2 * dy - 1) - shift, this.getWidth() / 6 * (2 * dx - 1) + shift, this.getHeight() / 6 * (2 * dy - 1) + shift);
+                    imageTac.draw(canvas);
 
                 }
             }
         }
 
-        if (this.flagAboutGrid == 5 || this.flagAboutGrid == 6) {
+        if (this.infoAboutGrid == InfoAboutGrid._5x5 || this.infoAboutGrid == InfoAboutGrid._5x5_bot) {
+
+            final int shift = this.getWidth() / 20;
+
             for (int i = 0; i != Logic.cells.size(); i++) {
 
-                if (Logic.cells.get(i).getKek() == 0) {
+                dx = Logic.cells.get(i).getX();
+                dy = Logic.cells.get(i).getY();
 
-                    imageKrestik.setBounds(Logic.cells.get(i).getX() - 75, Logic.cells.get(i).getY() - 75, Logic.cells.get(i).getX() + 75, Logic.cells.get(i).getY() + 75);
-                    imageKrestik.draw(canvas);
+                if (Logic.cells.get(i).state == Cell.State.TIC) {
 
-                } else {
+                    imageTic.setBounds(this.getWidth() / 10 * (2 * dx - 1) - shift, this.getHeight() / 10 * (2 * dy - 1) - shift, this.getWidth() / 10 * (2 * dx - 1) + shift, this.getHeight() / 10 * (2 * dy - 1) + shift);
+                    imageTic.draw(canvas);
 
-                    imageNolik.setBounds(Logic.cells.get(i).getX() - 62, Logic.cells.get(i).getY() - 62, Logic.cells.get(i).getX() + 62, Logic.cells.get(i).getY() + 62);
-                    imageNolik.draw(canvas);
+                } else if (Logic.cells.get(i).state == Cell.State.TAC) {
+
+                    imageTac.setBounds(this.getWidth() / 10 * (2 * dx - 1) - shift, this.getHeight() / 10 * (2 * dy - 1) - shift, this.getWidth() / 10 * (2 * dx - 1) + shift, this.getHeight() / 10 * (2 * dy - 1) + shift);
+                    imageTac.draw(canvas);
 
                 }
 
@@ -136,227 +136,203 @@ public class PlayField extends View {
         Logic.countStep++;
 
 
-        if ((this.flagAboutGrid == 3 || this.flagAboutGrid == 4) && logic.checkWin3x3()) {
+        if ((this.infoAboutGrid == InfoAboutGrid._3x3 || this.infoAboutGrid == InfoAboutGrid._3x3_bot) && logic.checkWin3x3()) {
 
-            paint.setColor(Color.BLUE);
+            paint.setColor(getResources().getColor(R.color.blue));
             paint.setStrokeWidth(20);
 
-            switch (logic.arrWin[0]) {
+            switch (logic.infoWin) {
                 case 1:
-                    canvas.drawLine(163, 163, 817, 163, paint);
+                    canvas.drawLine(this.getWidth() / 6, this.getHeight() / 6, this.getWidth() * 5 / 6, this.getHeight() / 6, paint);
                     Logic.winO++;
-                    cO.setText(String.valueOf(Logic.winO));
                     break;
                 case 2:
-                    canvas.drawLine(163, 523, 817, 523, paint);
+                    canvas.drawLine(this.getWidth() / 6, this.getHeight() * 3 / 6, this.getWidth() * 5 / 6, this.getHeight() * 3 / 6, paint);
                     Logic.winO++;
-                    cO.setText(String.valueOf(Logic.winO));
                     break;
                 case 3:
-                    canvas.drawLine(163, 861, 817, 861, paint);
+                    canvas.drawLine(this.getWidth() / 6, this.getHeight() * 5 / 6, this.getWidth() * 5 / 6, this.getHeight() * 5 / 6, paint);
                     Logic.winO++;
-                    cO.setText(String.valueOf(Logic.winO));
                     break;
                 case 4:
-                    canvas.drawLine(163, 163, 163, 861, paint);
+                    canvas.drawLine(this.getWidth() / 6, this.getHeight() / 6, this.getWidth() / 6, this.getHeight() * 5 / 6, paint);
                     Logic.winO++;
-                    cO.setText(String.valueOf(Logic.winO));
                     break;
                 case 5:
-                    canvas.drawLine(490, 163, 490, 861, paint);
+                    canvas.drawLine(this.getWidth() * 3 / 6, this.getHeight() / 6, this.getWidth() * 3 / 6, this.getHeight() * 5 / 6, paint);
                     Logic.winO++;
-                    cO.setText(String.valueOf(Logic.winO));
                     break;
                 case 6:
-                    canvas.drawLine(817, 163, 817, 861, paint);
+                    canvas.drawLine(this.getWidth() * 5 / 6, this.getHeight() / 6, this.getWidth() * 5 / 6, this.getHeight() * 5 / 6, paint);
                     Logic.winO++;
-                    cO.setText(String.valueOf(Logic.winO));
                     break;
                 case 7:
-                    canvas.drawLine(163, 163, 817, 861, paint);
+                    canvas.drawLine(this.getWidth() / 6, this.getHeight() / 6, this.getWidth() * 5 / 6, this.getHeight() * 5 / 6, paint);
                     Logic.winO++;
-                    cO.setText(String.valueOf(Logic.winO));
                     break;
                 case 8:
-                    canvas.drawLine(817, 163, 163, 861, paint);
+                    canvas.drawLine(this.getWidth() * 5 / 6, this.getHeight() / 6, this.getWidth() / 6, this.getHeight() * 5 / 6, paint);
                     Logic.winO++;
-                    cO.setText(String.valueOf(Logic.winO));
                     break;
 
 
                 case 11:
-                    canvas.drawLine(163, 163, 817, 163, paint);
+                    canvas.drawLine(this.getWidth() / 6, this.getHeight() / 6, this.getWidth() * 5 / 6, this.getHeight() / 6, paint);
                     Logic.winX++;
-                    cX.setText(String.valueOf(Logic.winX));
                     break;
                 case 12:
-                    canvas.drawLine(163, 523, 817, 523, paint);
+                    canvas.drawLine(this.getWidth() / 6, this.getHeight() * 3 / 6, this.getWidth() * 5 / 6, this.getHeight() * 3 / 6, paint);
                     Logic.winX++;
-                    cX.setText(String.valueOf(Logic.winX));
                     break;
                 case 13:
-                    canvas.drawLine(163, 861, 817, 861, paint);
+                    canvas.drawLine(this.getWidth() / 6, this.getHeight() * 5 / 6, this.getWidth() * 5 / 6, this.getHeight() * 5 / 6, paint);
                     Logic.winX++;
-                    cX.setText(String.valueOf(Logic.winX));
                     break;
                 case 14:
-                    canvas.drawLine(163, 163, 163, 861, paint);
+                    canvas.drawLine(this.getWidth() / 6, this.getHeight() / 6, this.getWidth() / 6, this.getHeight() * 5 / 6, paint);
                     Logic.winX++;
-                    cX.setText(String.valueOf(Logic.winX));
                     break;
                 case 15:
-                    canvas.drawLine(490, 163, 490, 861, paint);
+                    canvas.drawLine(this.getWidth() * 3 / 6, this.getHeight() / 6, this.getWidth() * 3 / 6, this.getHeight() * 5 / 6, paint);
                     Logic.winX++;
-                    cX.setText(String.valueOf(Logic.winX));
                     break;
                 case 16:
-                    canvas.drawLine(817, 163, 817, 861, paint);
+                    canvas.drawLine(this.getWidth() * 5 / 6, this.getHeight() / 6, this.getWidth() * 5 / 6, this.getHeight() * 5 / 6, paint);
                     Logic.winX++;
-                    cX.setText(String.valueOf(Logic.winX));
                     break;
                 case 17:
-                    canvas.drawLine(163, 163, 817, 861, paint);
+                    canvas.drawLine(this.getWidth() / 6, this.getHeight() / 6, this.getWidth() * 5 / 6, this.getHeight() * 5 / 6, paint);
                     Logic.winX++;
-                    cX.setText(String.valueOf(Logic.winX));
                     break;
                 case 18:
-                    canvas.drawLine(817, 163, 163, 861, paint);
+                    canvas.drawLine(this.getWidth() * 5 / 6, this.getHeight() / 6, this.getWidth() / 6, this.getHeight() * 5 / 6, paint);
                     Logic.winX++;
-                    cX.setText(String.valueOf(Logic.winX));
                     break;
             }
+            cO.setText(String.valueOf(Logic.winO));
+            cX.setText(String.valueOf(Logic.winX));
         }
 
 
-        if ((this.flagAboutGrid == 5 || this.flagAboutGrid == 6) && logic.checkWin5x5()) {
+        if ((this.infoAboutGrid == InfoAboutGrid._5x5 || this.infoAboutGrid == InfoAboutGrid._5x5_bot) && logic.checkWin5x5()) {
 
-            paint.setColor(Color.BLUE);
+            paint.setColor(getResources().getColor(R.color.blue));
             paint.setStrokeWidth(15);
 
-            switch (logic.arrWin[0]) {
+            switch (logic.infoWin) {
                 case 1:
-                    canvas.drawLine(102, 104, 886, 104, paint);
+                    canvas.drawLine(this.getWidth() / 10, this.getHeight() / 10, this.getWidth() * 9 / 10, this.getHeight() / 10, paint);
                     Logic.winO++;
                     cO.setText(String.valueOf(Logic.winO));
                     break;
                 case 2:
-                    canvas.drawLine(102, 312, 886, 312, paint);
+                    canvas.drawLine(this.getWidth() / 10, this.getHeight() * 3 / 10, this.getWidth() * 9 / 10, this.getHeight() * 3 / 10, paint);
                     Logic.winO++;
                     cO.setText(String.valueOf(Logic.winO));
                     break;
                 case 3:
-                    canvas.drawLine(102, 525, 886, 525, paint);
+                    canvas.drawLine(this.getWidth() / 10, this.getHeight() * 5 / 10, this.getWidth() * 9 / 10, this.getHeight() * 5 / 10, paint);
                     Logic.winO++;
                     cO.setText(String.valueOf(Logic.winO));
                     break;
                 case 31:
-                    canvas.drawLine(102, 735, 886, 735, paint);
+                    canvas.drawLine(this.getWidth() / 10, this.getHeight() * 7 / 10, this.getWidth() * 9 / 10, this.getHeight() * 7 / 10, paint);
                     Logic.winO++;
                     cO.setText(String.valueOf(Logic.winO));
                     break;
                 case 32:
-                    canvas.drawLine(102, 946, 886, 946, paint);
+                    canvas.drawLine(this.getWidth() / 10, this.getHeight() * 9 / 10, this.getWidth() * 9 / 10, this.getHeight() * 9 / 10, paint);
                     Logic.winO++;
                     cO.setText(String.valueOf(Logic.winO));
                     break;
                 case 4:
-                    canvas.drawLine(102, 104, 102, 946, paint);
+                    canvas.drawLine(this.getWidth() / 10, this.getHeight() / 10, this.getWidth() / 10, this.getHeight() * 9 / 10, paint);
                     Logic.winO++;
                     cO.setText(String.valueOf(Logic.winO));
                     break;
                 case 5:
-                    canvas.drawLine(297, 104, 297, 946, paint);
+                    canvas.drawLine(this.getWidth() * 3 / 10, this.getHeight() / 10, this.getWidth() * 3 / 10, this.getHeight() * 9 / 10, paint);
                     Logic.winO++;
                     cO.setText(String.valueOf(Logic.winO));
                     break;
                 case 6:
-                    canvas.drawLine(496, 104, 496, 946, paint);
+                    canvas.drawLine(this.getWidth() * 5 / 10, this.getHeight() / 10, this.getWidth() * 5 / 10, this.getHeight() * 9 / 10, paint);
                     Logic.winO++;
                     cO.setText(String.valueOf(Logic.winO));
                     break;
                 case 61:
-                    canvas.drawLine(695, 104, 695, 946, paint);
+                    canvas.drawLine(this.getWidth() * 7 / 10, this.getHeight() / 10, this.getWidth() * 7 / 10, this.getHeight() * 9 / 10, paint);
                     Logic.winO++;
                     cO.setText(String.valueOf(Logic.winO));
                     break;
                 case 62:
-                    canvas.drawLine(886, 104, 886, 946, paint);
+                    canvas.drawLine(this.getWidth() * 9 / 10, this.getHeight() / 10, this.getWidth() * 9 / 10, this.getHeight() * 9 / 10, paint);
                     Logic.winO++;
                     cO.setText(String.valueOf(Logic.winO));
                     break;
                 case 7:
-                    canvas.drawLine(102, 104, 886, 946, paint);
+                    canvas.drawLine(this.getWidth() / 10, this.getHeight() / 10, this.getWidth() * 9 / 10, this.getHeight() * 9 / 10, paint);
                     Logic.winO++;
                     cO.setText(String.valueOf(Logic.winO));
                     break;
                 case 8:
-                    canvas.drawLine(886, 104, 102, 946, paint);
+                    canvas.drawLine(this.getWidth() * 9 / 10, this.getHeight() / 10, this.getWidth() / 10, this.getHeight() * 9 / 10, paint);
                     Logic.winO++;
                     cO.setText(String.valueOf(Logic.winO));
                     break;
 
 
                 case 11:
-                    canvas.drawLine(102, 104, 886, 104, paint);
+                    canvas.drawLine(this.getWidth() / 10, this.getHeight() / 10, this.getWidth() * 9 / 10, this.getHeight() / 10, paint);
                     Logic.winX++;
-                    cX.setText(String.valueOf(Logic.winX));
                     break;
                 case 12:
-                    canvas.drawLine(102, 312, 886, 312, paint);
+                    canvas.drawLine(this.getWidth() / 10, this.getHeight() * 3 / 10, this.getWidth() * 9 / 10, this.getHeight() * 3 / 10, paint);
                     Logic.winX++;
-                    cX.setText(String.valueOf(Logic.winX));
                     break;
                 case 13:
-                    canvas.drawLine(102, 525, 886, 525, paint);
+                    canvas.drawLine(this.getWidth() / 10, this.getHeight() * 5 / 10, this.getWidth() * 9 / 10, this.getHeight() * 5 / 10, paint);
                     Logic.winX++;
-                    cX.setText(String.valueOf(Logic.winX));
                     break;
                 case 131:
-                    canvas.drawLine(102, 735, 886, 735, paint);
+                    canvas.drawLine(this.getWidth() / 10, this.getHeight() * 7 / 10, this.getWidth() * 9 / 10, this.getHeight() * 7 / 10, paint);
                     Logic.winX++;
-                    cX.setText(String.valueOf(Logic.winX));
                     break;
                 case 132:
-                    canvas.drawLine(102, 946, 886, 946, paint);
+                    canvas.drawLine(this.getWidth() / 10, this.getHeight() * 9 / 10, this.getWidth() * 9 / 10, this.getHeight() * 9 / 10, paint);
                     Logic.winX++;
-                    cX.setText(String.valueOf(Logic.winX));
                     break;
                 case 14:
-                    canvas.drawLine(102, 104, 102, 946, paint);
+                    canvas.drawLine(this.getWidth() / 10, this.getHeight() / 10, this.getWidth() / 10, this.getHeight() * 9 / 10, paint);
                     Logic.winX++;
-                    cX.setText(String.valueOf(Logic.winX));
                     break;
                 case 15:
-                    canvas.drawLine(297, 104, 297, 946, paint);
+                    canvas.drawLine(this.getWidth() * 3 / 10, this.getHeight() / 10, this.getWidth() * 3 / 10, this.getHeight() * 9 / 10, paint);
                     Logic.winX++;
-                    cX.setText(String.valueOf(Logic.winX));
                     break;
                 case 16:
-                    canvas.drawLine(496, 104, 496, 946, paint);
+                    canvas.drawLine(this.getWidth() * 5 / 10, this.getHeight() / 10, this.getWidth() * 5 / 10, this.getHeight() * 9 / 10, paint);
                     Logic.winX++;
-                    cX.setText(String.valueOf(Logic.winX));
                     break;
                 case 161:
-                    canvas.drawLine(695, 104, 695, 946, paint);
+                    canvas.drawLine(this.getWidth() * 7 / 10, this.getHeight() / 10, this.getWidth() * 7 / 10, this.getHeight() * 9 / 10, paint);
                     Logic.winX++;
-                    cX.setText(String.valueOf(Logic.winX));
                     break;
                 case 162:
-                    canvas.drawLine(886, 104, 886, 946, paint);
+                    canvas.drawLine(this.getWidth() * 9 / 10, this.getHeight() / 10, this.getWidth() * 9 / 10, this.getHeight() * 9 / 10, paint);
                     Logic.winX++;
-                    cX.setText(String.valueOf(Logic.winX));
                     break;
                 case 17:
-                    canvas.drawLine(102, 104, 886, 946, paint);
+                    canvas.drawLine(this.getWidth() / 10, this.getHeight() / 10, this.getWidth() * 9 / 10, this.getHeight() * 9 / 10, paint);
                     Logic.winX++;
-                    cX.setText(String.valueOf(Logic.winX));
                     break;
                 case 18:
-                    canvas.drawLine(886, 104, 102, 946, paint);
+                    canvas.drawLine(this.getWidth() * 9 / 10, this.getHeight() / 10, this.getWidth() / 10, this.getHeight() * 9 / 10, paint);
                     Logic.winX++;
-                    cX.setText(String.valueOf(Logic.winX));
                     break;
             }
+            cO.setText(String.valueOf(Logic.winO));
+            cX.setText(String.valueOf(Logic.winX));
         }
 
     }

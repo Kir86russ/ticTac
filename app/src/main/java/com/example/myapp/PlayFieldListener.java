@@ -14,7 +14,7 @@ class PlayFieldListener implements View.OnTouchListener {
 
     private final PlayField playField;
     private final Logic logic = new Logic();
-    private final bot bot = new bot();
+    private final AIbot bot = new AIbot();
 
     PlayFieldListener(PlayField playField) {
         this.playField = playField;
@@ -24,10 +24,10 @@ class PlayFieldListener implements View.OnTouchListener {
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
 
+        System.out.println(playField.getInfoAboutGrid() + "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+        if (playField.getInfoAboutGrid() == PlayField.InfoAboutGrid._3x3) {
 
-        if (playField.getFlagAboutGrid() == 3) {
-
-            Cell checkPoint = reCoordinate3x3(new Cell((int) motionEvent.getX(), (int) motionEvent.getY(), -1)); // -1 потому что не используется
+            Cell checkPoint = reCoordinate3x3(new Cell((int) motionEvent.getX(), (int) motionEvent.getY(), null));
 
 
             if (checkPoint != null && logic.isEmptyOnCell(checkPoint)) { // null - нажатие на ребро
@@ -43,20 +43,20 @@ class PlayFieldListener implements View.OnTouchListener {
 
                         Cell point;
                         if (Logic.countStep % 2 == 0)
-                            point = reCoordinate3x3(new Cell((int) startX, (int) startY, 1));
-                        else point = reCoordinate3x3(new Cell((int) startX, (int) startY, 0));
+                            point = reCoordinate3x3(new Cell((int) startX, (int) startY, Cell.State.TAC));
+                        else point = reCoordinate3x3(new Cell((int) startX, (int) startY, Cell.State.TIC));
 
                         if (point != null) {
-                            logic.setFieldCell(point);
+                            logic.addFieldCell(point);
                             playField.invalidate();
                             if (logic.checkWin3x3()) playField.setClickable(false);
                         }
                         break;
                 }
             }
-        } else if (playField.getFlagAboutGrid() == 4) { // bot (3x3)
+        } else if (playField.getInfoAboutGrid() == PlayField.InfoAboutGrid._3x3_bot) { // bot (3x3)
 
-            Cell checkPoint = reCoordinate3x3(new Cell((int) motionEvent.getX(), (int) motionEvent.getY(), -1)); // -1 not usable
+            Cell checkPoint = reCoordinate3x3(new Cell((int) motionEvent.getX(), (int) motionEvent.getY(), null)); // -1 not usable
 
 
             if (checkPoint != null && logic.isEmptyOnCell(checkPoint)) {// null - нажатие на ребро
@@ -72,11 +72,11 @@ class PlayFieldListener implements View.OnTouchListener {
 
                         Cell point;
                         if (Logic.countStep % 2 == 0)
-                            point = reCoordinate3x3(new Cell((int) startX, (int) startY, 1));
-                        else point = reCoordinate3x3(new Cell((int) startX, (int) startY, 0));
+                            point = reCoordinate3x3(new Cell((int) startX, (int) startY, Cell.State.TAC));
+                        else point = reCoordinate3x3(new Cell((int) startX, (int) startY, Cell.State.TIC));
 
                         if (point != null) {
-                            logic.setFieldCell(point);
+                            logic.addFieldCell(point);
                             playField.invalidate();
                             if (logic.checkWin3x3()) playField.setClickable(false);
                             else bot.goBy3x3();
@@ -85,9 +85,9 @@ class PlayFieldListener implements View.OnTouchListener {
                         break;
                 }
             }
-        } else if (playField.getFlagAboutGrid() == 5) {
+        } else if (playField.getInfoAboutGrid() == PlayField.InfoAboutGrid._5x5) {
 
-            Cell checkPoint = reCoordinate5x5(new Cell((int) motionEvent.getX(), (int) motionEvent.getY(), -1));    // last parameter not usable
+            Cell checkPoint = reCoordinate5x5(new Cell((int) motionEvent.getX(), (int) motionEvent.getY(), null));    // last parameter not usable
 
 
             if (checkPoint != null && logic.isEmptyOnCell(checkPoint)) {// null - нажатие на ребро
@@ -102,20 +102,20 @@ class PlayFieldListener implements View.OnTouchListener {
                     case ACTION_UP:
                         Cell point;
                         if (Logic.countStep % 2 == 0)
-                            point = reCoordinate5x5(new Cell((int) startX, (int) startY, 1));
-                        else point = reCoordinate5x5(new Cell((int) startX, (int) startY, 0));
+                            point = reCoordinate5x5(new Cell((int) startX, (int) startY, Cell.State.TAC));
+                        else point = reCoordinate5x5(new Cell((int) startX, (int) startY, Cell.State.TIC));
 
                         if (point != null) {
-                            logic.setFieldCell(point);
+                            logic.addFieldCell(point);
                             playField.invalidate();
                             if (logic.checkWin5x5()) playField.setClickable(false);
                         }
                         break;
                 }
             }
-        } else if (playField.getFlagAboutGrid() == 6) {
+        } else if (playField.getInfoAboutGrid() == PlayField.InfoAboutGrid._5x5_bot) {
 
-            Cell checkPoint = reCoordinate5x5(new Cell((int) motionEvent.getX(), (int) motionEvent.getY(), -1)); // last param no use
+            Cell checkPoint = reCoordinate5x5(new Cell((int) motionEvent.getX(), (int) motionEvent.getY(), null)); // last param no use
 
 
             if (checkPoint != null && logic.isEmptyOnCell(checkPoint)) {// null - нажатие на ребро
@@ -131,11 +131,11 @@ class PlayFieldListener implements View.OnTouchListener {
 
                         Cell point;
                         if (Logic.countStep % 2 == 0)
-                            point = reCoordinate5x5(new Cell((int) startX, (int) startY, 1));
-                        else point = reCoordinate5x5(new Cell((int) startX, (int) startY, 0));
+                            point = reCoordinate5x5(new Cell((int) startX, (int) startY, Cell.State.TAC));
+                        else point = reCoordinate5x5(new Cell((int) startX, (int) startY, Cell.State.TIC));
 
                         if (point != null) {
-                            logic.setFieldCell(point);
+                            logic.addFieldCell(point);
                             playField.invalidate();
                             if (logic.checkWin5x5()) playField.setClickable(false);
                             else bot.goBy5x5();
@@ -150,182 +150,183 @@ class PlayFieldListener implements View.OnTouchListener {
 
 
     private Cell reCoordinate3x3(Cell point) {
-        if (point.getX() > 0 && point.getX() < 327 && point.getY() > 0 && point.getY() < 349) {
-            point.setX(163);
-            point.setY(163);
+
+        if (point.getX() > 0 && point.getX() < playField.getWidth() / 3 && point.getY() > 0 && point.getY() < playField.getHeight() / 3){
+            point.setX(1);
+            point.setY(1);
             return point;
         }
-        if (point.getX() > 328 && point.getX() < 654 && point.getY() > 0 && point.getY() < 349) {
-            point.setX(490);
-            point.setY(163);
+        if (point.getX() > playField.getWidth() / 3 && point.getX() < playField.getWidth() * 2 / 3 && point.getY() > 0 && point.getY() < playField.getHeight() / 3) {
+            point.setX(2);
+            point.setY(1);
             return point;
         }
-        if (point.getX() > 655 && point.getX() < 982 && point.getY() > 0 && point.getY() < 349) {
-            point.setX(817);
-            point.setY(163);
+        if (point.getX() > playField.getWidth() * 2 / 3 && point.getX() < playField.getWidth() && point.getY() > 0 && point.getY() < playField.getHeight() / 3) {
+            point.setX(3);
+            point.setY(1);
             return point;
         }
-        if (point.getX() > 0 && point.getX() < 327 && point.getY() > 350 && point.getY() < 700) {
-            point.setX(163);
-            point.setY(523);
+        if (point.getX() > 0 && point.getX() < playField.getWidth() / 3 && point.getY() > playField.getHeight() / 3 && point.getY() < playField.getHeight() * 2 / 3) {
+            point.setX(1);
+            point.setY(2);
             return point;
         }
-        if (point.getX() > 328 && point.getX() < 654 && point.getY() > 350 && point.getY() < 700) {
-            point.setX(490);
-            point.setY(523);
+        if (point.getX() > playField.getWidth() / 3 && point.getX() < playField.getWidth() * 2 / 3 && point.getY() > playField.getHeight() / 3 && point.getY() < playField.getHeight() * 2 / 3) {
+            point.setX(2);
+            point.setY(2);
             return point;
         }
-        if (point.getX() > 655 && point.getX() < 982 && point.getY() > 350 && point.getY() < 700) {
-            point.setX(817);
-            point.setY(523);
+        if (point.getX() > playField.getWidth() * 2 / 3 && point.getX() < playField.getWidth() && point.getY() > playField.getHeight() / 3 && point.getY() < playField.getHeight() * 2 / 3) {
+            point.setX(3);
+            point.setY(2);
             return point;
         }
-        if (point.getX() > 0 && point.getX() < 327 && point.getY() > 701 && point.getY() < 1048) {
-            point.setX(163);
-            point.setY(861);
+        if (point.getX() > 0 && point.getX() < playField.getWidth() / 3 && point.getY() > playField.getHeight() * 2 / 3 && point.getY() < playField.getHeight()) {
+            point.setX(1);
+            point.setY(3);
             return point;
         }
-        if (point.getX() > 328 && point.getX() < 654 && point.getY() > 701 && point.getY() < 1048) {
-            point.setX(490);
-            point.setY(861);
+        if (point.getX() > playField.getWidth() / 3 && point.getX() < playField.getWidth() * 2 / 3 && point.getY() > playField.getHeight() * 2 / 3 && point.getY() < playField.getHeight()) {
+            point.setX(2);
+            point.setY(3);
             return point;
         }
-        if (point.getX() > 655 && point.getX() < 982 && point.getY() > 701 && point.getY() < 1048) {
-            point.setX(817);
-            point.setY(861);
+        if (point.getX() > playField.getWidth() * 2 / 3 && point.getX() < playField.getWidth() && point.getY() > playField.getHeight() * 2 / 3 && point.getY() < playField.getHeight()) {
+            point.setX(3);
+            point.setY(3);
             return point;
         } else return null;
     }
 
 
     private Cell reCoordinate5x5(Cell point) {
-        if (point.getX() > 13 && point.getX() < 186 && point.getY() > 12 && point.getY() < 196) {
-            point.setX(102);
-            point.setY(104);
+        if (point.getX() > 0 && point.getX() < playField.getWidth() / 5 && point.getY() > 0 && point.getY() < playField.getHeight() / 5) {
+            point.setX(1);
+            point.setY(1);
             return point;
         }
-        if (point.getX() > 209 && point.getX() < 382 && point.getY() > 12 && point.getY() < 196) {
-            point.setX(297);
-            point.setY(104);
+        if (point.getX() > playField.getWidth() / 5 && point.getX() < playField.getWidth() * 2 / 5 && point.getY() > 0 && point.getY() < playField.getHeight() / 5) {
+            point.setX(2);
+            point.setY(1);
             return point;
         }
-        if (point.getX() > 406 && point.getX() < 582 && point.getY() > 12 && point.getY() < 196) {
-            point.setX(496);
-            point.setY(104);
+        if (point.getX() > playField.getWidth() * 2 / 5 && point.getX() < playField.getWidth() * 3 / 5 && point.getY() > 0 && point.getY() < playField.getHeight() / 5) {
+            point.setX(3);
+            point.setY(1);
             return point;
         }
-        if (point.getX() > 603 && point.getX() < 783 && point.getY() > 12 && point.getY() < 196) {
-            point.setX(695);
-            point.setY(104);
+        if (point.getX() > playField.getWidth() * 3 / 5 && point.getX() < playField.getWidth() * 4 / 5 && point.getY() > 0 && point.getY() < playField.getHeight() / 5) {
+            point.setX(4);
+            point.setY(1);
             return point;
         }
-        if (point.getX() > 802 && point.getX() < 966 && point.getY() > 12 && point.getY() < 196) {
-            point.setX(886);
-            point.setY(104);
-            return point;
-        }
-
-        if (point.getX() > 13 && point.getX() < 186 && point.getY() > 220 && point.getY() < 411) {
-            point.setX(102);
-            point.setY(312);
-            return point;
-        }
-        if (point.getX() > 209 && point.getX() < 382 && point.getY() > 220 && point.getY() < 411) {
-            point.setX(297);
-            point.setY(312);
-            return point;
-        }
-        if (point.getX() > 406 && point.getX() < 582 && point.getY() > 220 && point.getY() < 411) {
-            point.setX(496);
-            point.setY(312);
-            return point;
-        }
-        if (point.getX() > 603 && point.getX() < 783 && point.getY() > 220 && point.getY() < 411) {
-            point.setX(695);
-            point.setY(312);
-            return point;
-        }
-        if (point.getX() > 802 && point.getX() < 966 && point.getY() > 220 && point.getY() < 411) {
-            point.setX(886);
-            point.setY(312);
+        if (point.getX() > playField.getWidth() * 4 / 5 && point.getX() < playField.getWidth() && point.getY() > 0 && point.getY() < playField.getHeight() / 5) {
+            point.setX(5);
+            point.setY(1);
             return point;
         }
 
-        if (point.getX() > 13 && point.getX() < 186 && point.getY() > 434 && point.getY() < 622) {
-            point.setX(102);
-            point.setY(525);
+        if (point.getX() > 0 && point.getX() < playField.getWidth() / 5 && point.getY() > playField.getHeight() / 5 && point.getY() < playField.getHeight() * 2 / 5) {
+            point.setX(1);
+            point.setY(2);
             return point;
         }
-        if (point.getX() > 209 && point.getX() < 382 && point.getY() > 434 && point.getY() < 622) {
-            point.setX(297);
-            point.setY(525);
+        if (point.getX() > playField.getWidth() / 5 && point.getX() < playField.getWidth() * 2 / 5 && point.getY() > playField.getHeight() / 5 && point.getY() < playField.getHeight() * 2 / 5) {
+            point.setX(2);
+            point.setY(2);
             return point;
         }
-        if (point.getX() > 406 && point.getX() < 582 && point.getY() > 434 && point.getY() < 622) {
-            point.setX(496);
-            point.setY(525);
+        if (point.getX() > playField.getWidth() * 2 / 5 && point.getX() < playField.getWidth() * 3 / 5 && point.getY() > playField.getHeight() / 5 && point.getY() < playField.getHeight() * 2 / 5) {
+            point.setX(3);
+            point.setY(2);
             return point;
         }
-        if (point.getX() > 603 && point.getX() < 783 && point.getY() > 434 && point.getY() < 622) {
-            point.setX(695);
-            point.setY(525);
+        if (point.getX() > playField.getWidth() * 3 / 5 && point.getX() < playField.getWidth() * 4 / 5 && point.getY() > playField.getHeight() / 5 && point.getY() < playField.getHeight() * 2 / 5) {
+            point.setX(4);
+            point.setY(2);
             return point;
         }
-        if (point.getX() > 802 && point.getX() < 966 && point.getY() > 434 && point.getY() < 622) {
-            point.setX(886);
-            point.setY(525);
-            return point;
-        }
-
-        if (point.getX() > 13 && point.getX() < 186 && point.getY() > 645 && point.getY() < 833) {
-            point.setX(102);
-            point.setY(735);
-            return point;
-        }
-        if (point.getX() > 209 && point.getX() < 382 && point.getY() > 645 && point.getY() < 833) {
-            point.setX(297);
-            point.setY(735);
-            return point;
-        }
-        if (point.getX() > 406 && point.getX() < 582 && point.getY() > 645 && point.getY() < 833) {
-            point.setX(496);
-            point.setY(735);
-            return point;
-        }
-        if (point.getX() > 603 && point.getX() < 783 && point.getY() > 645 && point.getY() < 833) {
-            point.setX(695);
-            point.setY(735);
-            return point;
-        }
-        if (point.getX() > 802 && point.getX() < 966 && point.getY() > 645 && point.getY() < 833) {
-            point.setX(886);
-            point.setY(735);
+        if (point.getX() > playField.getWidth() * 4 / 5 && point.getX() < playField.getWidth() && point.getY() > playField.getHeight() / 5 && point.getY() < playField.getHeight() * 2 / 5) {
+            point.setX(5);
+            point.setY(2);
             return point;
         }
 
-        if (point.getX() > 13 && point.getX() < 186 && point.getY() > 856 && point.getY() < 1041) {
-            point.setX(102);
-            point.setY(946);
+        if (point.getX() > 0 && point.getX() < playField.getWidth() / 5 && point.getY() > playField.getHeight() * 2 / 5 && point.getY() < playField.getHeight() * 3 / 5) {
+            point.setX(1);
+            point.setY(3);
             return point;
         }
-        if (point.getX() > 209 && point.getX() < 382 && point.getY() > 856 && point.getY() < 1041) {
-            point.setX(297);
-            point.setY(946);
+        if (point.getX() > playField.getWidth() / 5 && point.getX() < playField.getWidth() * 2 / 5 && point.getY() > playField.getHeight() * 2 / 5 && point.getY() < playField.getHeight() * 3 / 5) {
+            point.setX(2);
+            point.setY(3);
             return point;
         }
-        if (point.getX() > 406 && point.getX() < 582 && point.getY() > 856 && point.getY() < 1041) {
-            point.setX(496);
-            point.setY(946);
+        if (point.getX() > playField.getWidth() * 2 / 5 && point.getX() < playField.getWidth() * 3 / 5 && point.getY() > playField.getHeight() * 2 / 5 && point.getY() < playField.getHeight() * 3 / 5) {
+            point.setX(3);
+            point.setY(3);
             return point;
         }
-        if (point.getX() > 603 && point.getX() < 783 && point.getY() > 856 && point.getY() < 1041) {
-            point.setX(695);
-            point.setY(946);
+        if (point.getX() > playField.getWidth() * 3 / 5 && point.getX() < playField.getWidth() * 4 / 5 && point.getY() > playField.getHeight() * 2 / 5 && point.getY() < playField.getHeight() * 3 / 5) {
+            point.setX(4);
+            point.setY(3);
             return point;
         }
-        if (point.getX() > 802 && point.getX() < 966 && point.getY() > 856 && point.getY() < 1041) {
-            point.setX(886);
-            point.setY(946);
+        if (point.getX() > playField.getWidth() * 4 / 5 && point.getX() < playField.getWidth() && point.getY() > playField.getHeight() * 2 / 5 && point.getY() < playField.getHeight() * 3 / 5) {
+            point.setX(5);
+            point.setY(3);
+            return point;
+        }
+
+        if (point.getX() > 0 && point.getX() < playField.getWidth() / 5 && point.getY() > playField.getHeight() * 3 / 5 && point.getY() < playField.getHeight() * 4 / 5) {
+            point.setX(1);
+            point.setY(4);
+            return point;
+        }
+        if (point.getX() > playField.getWidth() / 5 && point.getX() < playField.getWidth() * 2 / 5 && point.getY() > playField.getHeight() * 3 / 5 && point.getY() < playField.getHeight() * 4 / 5) {
+            point.setX(2);
+            point.setY(4);
+            return point;
+        }
+        if (point.getX() > playField.getWidth() * 2 / 5 && point.getX() < playField.getWidth() * 3 / 5 && point.getY() > playField.getHeight() * 3 / 5 && point.getY() < playField.getHeight() * 4 / 5) {
+            point.setX(3);
+            point.setY(4);
+            return point;
+        }
+        if (point.getX() > playField.getWidth() * 3 / 5 && point.getX() < playField.getWidth() * 4 / 5 && point.getY() > playField.getHeight() * 3 / 5 && point.getY() < playField.getHeight() * 4 / 5) {
+            point.setX(4);
+            point.setY(4);
+            return point;
+        }
+        if (point.getX() > playField.getWidth() * 4 / 5 && point.getX() < playField.getWidth() && point.getY() > playField.getHeight() * 3 / 5 && point.getY() < playField.getHeight() * 4 / 5) {
+            point.setX(5);
+            point.setY(4);
+            return point;
+        }
+
+        if (point.getX() > 0 && point.getX() < playField.getWidth() / 5 && point.getY() > playField.getHeight() * 4 / 5 && point.getY() < playField.getHeight()) {
+            point.setX(1);
+            point.setY(5);
+            return point;
+        }
+        if (point.getX() > playField.getWidth() / 5 && point.getX() < playField.getWidth() * 2 / 5 && point.getY() > playField.getHeight() * 4 / 5 && point.getY() < playField.getHeight()) {
+            point.setX(2);
+            point.setY(5);
+            return point;
+        }
+        if (point.getX() > playField.getWidth() * 2 / 5 && point.getX() < playField.getWidth() * 3 / 5 && point.getY() > playField.getHeight() * 4 / 5 && point.getY() < playField.getHeight()) {
+            point.setX(3);
+            point.setY(5);
+            return point;
+        }
+        if (point.getX() > playField.getWidth() * 3 / 5 && point.getX() < playField.getWidth() * 4 / 5 && point.getY() > playField.getHeight() * 4 / 5 && point.getY() < playField.getHeight()) {
+            point.setX(4);
+            point.setY(5);
+            return point;
+        }
+        if (point.getX() > playField.getWidth() * 4 / 5 && point.getX() < playField.getWidth() && point.getY() > playField.getHeight() * 4 / 5 && point.getY() < playField.getHeight()) {
+            point.setX(5);
+            point.setY(5);
             return point;
         } else return null;
     }

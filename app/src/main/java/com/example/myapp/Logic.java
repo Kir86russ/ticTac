@@ -6,11 +6,13 @@ class Logic {
 
     static final ArrayList<Cell> cells = new ArrayList<>();
 
+    enum InfoTeamWin {WIN_TIC, WIN_TAC} // X,O
+
     static int winX = 0;
     static int winO = 0;
-    static int flagTeamWin = 0; // 1-x, 2-o
-    static int countStep = 0;
-    final int[] arrWin = new int[1];
+    static InfoTeamWin infoTeamWin; //
+    static int countStep = 0;  //
+    int infoWin = 0;
 
 
 
@@ -62,57 +64,57 @@ class Logic {
 
 
         /* Проверка на победу ноликов, горизонтальный ряд*/
-        if (checkInGrid(new Cell(163, 163, 1)) && checkInGrid(new Cell(490, 163, 1)) && checkInGrid(new Cell(817, 163, 1))) {
-            arrWin[0] = 1;
-            flagTeamWin = 2;
+        if (checkInGrid(new Cell(1, 1, Cell.State.TAC)) && checkInGrid(new Cell(2, 1, Cell.State.TAC)) && checkInGrid(new Cell(3, 1, Cell.State.TAC))) {
+            infoWin = 1;
+            infoTeamWin = InfoTeamWin.WIN_TAC;
             return true;
         }
 
-        if (checkInGrid(new Cell(163, 523, 1)) && checkInGrid(new Cell(490, 523, 1)) && checkInGrid(new Cell(817, 523, 1))) {
-            arrWin[0] = 2;
-            flagTeamWin = 2;
+        if (checkInGrid(new Cell(1, 2, Cell.State.TAC)) && checkInGrid(new Cell(2, 2, Cell.State.TAC)) && checkInGrid(new Cell(3, 2, Cell.State.TAC))) {
+            infoWin = 2;
+            infoTeamWin = InfoTeamWin.WIN_TAC;
             return true;
         }
 
-        if (checkInGrid(new Cell(163, 861, 1)) && checkInGrid(new Cell(490, 861, 1)) && checkInGrid(new Cell(817, 861, 1))) {
-            arrWin[0] = 3;
-            flagTeamWin = 2;
+        if (checkInGrid(new Cell(1, 3, Cell.State.TAC)) && checkInGrid(new Cell(2, 3, Cell.State.TAC)) && checkInGrid(new Cell(3, 3, Cell.State.TAC))) {
+            infoWin = 3;
+            infoTeamWin = InfoTeamWin.WIN_TAC;
             return true;
         }
 
 
         /* Проверка на победу ноликов, вертикальный ряд*/
-        if (checkInGrid(new Cell(163, 163, 1)) && checkInGrid(new Cell(163, 523, 1)) && checkInGrid(new Cell(163, 861, 1))) {
-            arrWin[0] = 4;
-            flagTeamWin = 2;
+        if (checkInGrid(new Cell(1, 1, Cell.State.TAC)) && checkInGrid(new Cell(1, 2, Cell.State.TAC)) && checkInGrid(new Cell(1, 3, Cell.State.TAC))) {
+            infoWin = 4;
+            infoTeamWin = InfoTeamWin.WIN_TAC;
             return true;
         }
 
-        if (checkInGrid(new Cell(490, 163, 1)) && checkInGrid(new Cell(490, 523, 1)) && checkInGrid(new Cell(490, 861, 1))) {
-            arrWin[0] = 5;
-            flagTeamWin = 2;
+        if (checkInGrid(new Cell(2, 1, Cell.State.TAC)) && checkInGrid(new Cell(2, 2, Cell.State.TAC)) && checkInGrid(new Cell(2, 3, Cell.State.TAC))) {
+            infoWin = 5;
+            infoTeamWin = InfoTeamWin.WIN_TAC;
             return true;
         }
 
-        if (checkInGrid(new Cell(817, 163, 1)) && checkInGrid(new Cell(817, 523, 1)) && checkInGrid(new Cell(817, 861, 1))) {
-            arrWin[0] = 6;
-            flagTeamWin = 2;
+        if (checkInGrid(new Cell(3, 1, Cell.State.TAC)) && checkInGrid(new Cell(3, 2, Cell.State.TAC)) && checkInGrid(new Cell(3, 3, Cell.State.TAC))) {
+            infoWin = 6;
+            infoTeamWin = InfoTeamWin.WIN_TAC;
             return true;
         }
 
 
         /* Проверка на победу ноликов, диагональный \ ряд */
-        if (checkInGrid(new Cell(163, 163, 1)) && checkInGrid(new Cell(490, 523, 1)) && checkInGrid(new Cell(817, 861, 1))) {
-            arrWin[0] = 7;
-            flagTeamWin = 2;
+        if (checkInGrid(new Cell(1, 1, Cell.State.TAC)) && checkInGrid(new Cell(2, 2, Cell.State.TAC)) && checkInGrid(new Cell(3, 3, Cell.State.TAC))) {
+            infoWin = 7;
+            infoTeamWin = InfoTeamWin.WIN_TAC;
             return true;
         }
 
 
         /* Проверка на победу ноликов, диагональный / ряд */
-        if (checkInGrid(new Cell(817, 163, 1)) && checkInGrid(new Cell(490, 523, 1)) && checkInGrid(new Cell(163, 861, 1))) {
-            arrWin[0] = 8;
-            flagTeamWin = 2;
+        if (checkInGrid(new Cell(3, 1, Cell.State.TAC)) && checkInGrid(new Cell(2, 2, Cell.State.TAC)) && checkInGrid(new Cell(1, 3, Cell.State.TAC))) {
+            infoWin = 8;
+            infoTeamWin = InfoTeamWin.WIN_TAC;
             return true;
         }
 
@@ -121,60 +123,60 @@ class Logic {
 
 
         /* Проверка на победу КРЕСТИКОВ, горизонтальный ряд*/
-        if (checkInGrid(new Cell(163, 163, 0)) && checkInGrid(new Cell(490, 163, 0)) && checkInGrid(new Cell(817, 163, 0))) {
-            arrWin[0] = 11;
-            flagTeamWin = 1;
+        if (checkInGrid(new Cell(1, 1, Cell.State.TIC)) && checkInGrid(new Cell(2, 1, Cell.State.TIC)) && checkInGrid(new Cell(3, 1, Cell.State.TIC))) {
+            infoWin = 11;
+            infoTeamWin = InfoTeamWin.WIN_TIC;
             return true;
         }
 
-        if (checkInGrid(new Cell(163, 523, 0)) && checkInGrid(new Cell(490, 523, 0)) && checkInGrid(new Cell(817, 523, 0))) {
-            arrWin[0] = 12;
-            flagTeamWin = 1;
+        if (checkInGrid(new Cell(1, 2, Cell.State.TIC)) && checkInGrid(new Cell(2, 2, Cell.State.TIC)) && checkInGrid(new Cell(3, 2, Cell.State.TIC))) {
+            infoWin = 12;
+            infoTeamWin = InfoTeamWin.WIN_TIC;
             return true;
         }
 
-        if (checkInGrid(new Cell(163, 861, 0)) && checkInGrid(new Cell(490, 861, 0)) && checkInGrid(new Cell(817, 861, 0))) {
-            arrWin[0] = 13;
-            flagTeamWin = 1;
+        if (checkInGrid(new Cell(1, 3, Cell.State.TIC)) && checkInGrid(new Cell(2, 3, Cell.State.TIC)) && checkInGrid(new Cell(3, 3, Cell.State.TIC))) {
+            infoWin = 13;
+            infoTeamWin = InfoTeamWin.WIN_TIC;
             return true;
         }
 
 
         /* Проверка на победу крестиков, вертикальный ряд*/
-        if (checkInGrid(new Cell(163, 163, 0)) && checkInGrid(new Cell(163, 523, 0)) && checkInGrid(new Cell(163, 861, 0))) {
-            arrWin[0] = 14;
-            flagTeamWin = 1;
+        if (checkInGrid(new Cell(1, 1, Cell.State.TIC)) && checkInGrid(new Cell(1, 2, Cell.State.TIC)) && checkInGrid(new Cell(1, 3, Cell.State.TIC))) {
+            infoWin = 14;
+            infoTeamWin = InfoTeamWin.WIN_TIC;
             return true;
         }
 
-        if (checkInGrid(new Cell(490, 163, 0)) && checkInGrid(new Cell(490, 523, 0)) && checkInGrid(new Cell(490, 861, 0))) {
-            arrWin[0] = 15;
-            flagTeamWin = 1;
+        if (checkInGrid(new Cell(2, 1, Cell.State.TIC)) && checkInGrid(new Cell(2, 2, Cell.State.TIC)) && checkInGrid(new Cell(2, 3, Cell.State.TIC))) {
+            infoWin = 15;
+            infoTeamWin = InfoTeamWin.WIN_TIC;
             return true;
         }
 
-        if (checkInGrid(new Cell(817, 163, 0)) && checkInGrid(new Cell(817, 523, 0)) && checkInGrid(new Cell(817, 861, 0))) {
-            arrWin[0] = 16;
-            flagTeamWin = 1;
+        if (checkInGrid(new Cell(3, 1, Cell.State.TIC)) && checkInGrid(new Cell(3, 2, Cell.State.TIC)) && checkInGrid(new Cell(3, 3, Cell.State.TIC))) {
+            infoWin = 16;
+            infoTeamWin = InfoTeamWin.WIN_TIC;
             return true;
         }
 
 
         /* Проверка на победу крестиков, диагональный \ ряд */
-        if (checkInGrid(new Cell(163, 163, 0)) && checkInGrid(new Cell(490, 523, 0)) && checkInGrid(new Cell(817, 861, 0))) {
-            arrWin[0] = 17;
-            flagTeamWin = 1;
+        if (checkInGrid(new Cell(1, 1, Cell.State.TIC)) && checkInGrid(new Cell(2, 2, Cell.State.TIC)) && checkInGrid(new Cell(3, 3, Cell.State.TIC))) {
+            infoWin = 17;
+            infoTeamWin = InfoTeamWin.WIN_TIC;
             return true;
         }
 
 
         /* Проверка на победу крестиков, диагональный / ряд */
-        if (checkInGrid(new Cell(817, 163, 0)) && checkInGrid(new Cell(490, 523, 0)) && checkInGrid(new Cell(163, 861, 0))) {
-            arrWin[0] = 18;
-            flagTeamWin = 1;
+        if (checkInGrid(new Cell(3, 1, Cell.State.TIC)) && checkInGrid(new Cell(2, 2, Cell.State.TIC)) && checkInGrid(new Cell(1, 3, Cell.State.TIC))) {
+            infoWin = 18;
+            infoTeamWin = InfoTeamWin.WIN_TIC;
             return true;
         }
-        arrWin[0] = 0;
+        infoWin = 0;
         return false;
     }
 
@@ -240,167 +242,168 @@ class Logic {
     boolean checkWin5x5() {
 
         /* Проверка на победу ноликов, горизонтальный ряд*/
-        if (checkInGrid(new Cell(102, 104, 1)) && checkInGrid(new Cell(297, 104, 1)) && checkInGrid(new Cell(496, 104, 1)) && checkInGrid(new Cell(695, 104, 1)) && checkInGrid(new Cell(886, 104, 1))) {
-            arrWin[0] = 1;
-            flagTeamWin = 2;
+        if (checkInGrid(new Cell(1, 1, Cell.State.TAC)) && checkInGrid(new Cell(2, 1, Cell.State.TAC)) && checkInGrid(new Cell(3, 1, Cell.State.TAC)) && checkInGrid(new Cell(4, 1, Cell.State.TAC)) && checkInGrid(new Cell(5, 1, Cell.State.TAC))) {
+            infoWin = 1;
+            infoTeamWin = InfoTeamWin.WIN_TAC;
             return true;
         }
 
-        if (checkInGrid(new Cell(102, 312, 1)) && checkInGrid(new Cell(297, 312, 1)) && checkInGrid(new Cell(496, 312, 1)) && checkInGrid(new Cell(695, 312, 1)) && checkInGrid(new Cell(886, 312, 1))) {
-            arrWin[0] = 2;
-            flagTeamWin = 2;
+        if (checkInGrid(new Cell(1, 2, Cell.State.TAC)) && checkInGrid(new Cell(2, 2, Cell.State.TAC)) && checkInGrid(new Cell(3, 2, Cell.State.TAC)) && checkInGrid(new Cell(4, 2, Cell.State.TAC)) && checkInGrid(new Cell(5, 2, Cell.State.TAC))) {
+            infoWin = 2;
+            infoTeamWin = InfoTeamWin.WIN_TAC;
             return true;
         }
 
-        if (checkInGrid(new Cell(102, 525, 1)) && checkInGrid(new Cell(297, 525, 1)) && checkInGrid(new Cell(496, 525, 1)) && checkInGrid(new Cell(695, 525, 1)) && checkInGrid(new Cell(886, 525, 1))) {
-            arrWin[0] = 3;
-            flagTeamWin = 2;
+        if (checkInGrid(new Cell(1, 3, Cell.State.TAC)) && checkInGrid(new Cell(2, 3, Cell.State.TAC)) && checkInGrid(new Cell(3, 3, Cell.State.TAC)) && checkInGrid(new Cell(4, 3, Cell.State.TAC)) && checkInGrid(new Cell(5, 3, Cell.State.TAC))) {
+            infoWin = 3;
+            infoTeamWin = InfoTeamWin.WIN_TAC;
             return true;
         }
 
-        if (checkInGrid(new Cell(102, 735, 1)) && checkInGrid(new Cell(297, 735, 1)) && checkInGrid(new Cell(496, 735, 1)) && checkInGrid(new Cell(695, 735, 1)) && checkInGrid(new Cell(886, 735, 1))) {
-            arrWin[0] = 31;
-            flagTeamWin = 2;
+        if (checkInGrid(new Cell(1, 4, Cell.State.TAC)) && checkInGrid(new Cell(2, 4, Cell.State.TAC)) && checkInGrid(new Cell(3, 4, Cell.State.TAC)) && checkInGrid(new Cell(4, 4, Cell.State.TAC)) && checkInGrid(new Cell(5, 4, Cell.State.TAC))) {
+            infoWin = 31;
+            infoTeamWin = InfoTeamWin.WIN_TAC;
             return true;
         }
 
-        if (checkInGrid(new Cell(102, 946, 1)) && checkInGrid(new Cell(297, 946, 1)) && checkInGrid(new Cell(496, 946, 1)) && checkInGrid(new Cell(695, 946, 1)) && checkInGrid(new Cell(886, 946, 1))) {
-            arrWin[0] = 32;
-            flagTeamWin = 2;
+        if (checkInGrid(new Cell(1, 5, Cell.State.TAC)) && checkInGrid(new Cell(2, 5, Cell.State.TAC)) && checkInGrid(new Cell(3, 5, Cell.State.TAC)) && checkInGrid(new Cell(4, 5, Cell.State.TAC)) && checkInGrid(new Cell(5, 5, Cell.State.TAC))) {
+            infoWin = 32;
+            infoTeamWin = InfoTeamWin.WIN_TAC;
             return true;
         }
 
         /* Проверка на победу ноликов, вертикальный ряд*/
-        if (checkInGrid(new Cell(102, 104, 1)) && checkInGrid(new Cell(102, 312, 1)) && checkInGrid(new Cell(102, 525, 1)) && checkInGrid(new Cell(102, 735, 1)) && checkInGrid(new Cell(102, 946, 1))) {
-            arrWin[0] = 4;
-            flagTeamWin = 2;
+        if (checkInGrid(new Cell(1, 1, Cell.State.TAC)) && checkInGrid(new Cell(1, 2, Cell.State.TAC)) && checkInGrid(new Cell(1, 3, Cell.State.TAC)) && checkInGrid(new Cell(1, 4, Cell.State.TAC)) && checkInGrid(new Cell(1, 5, Cell.State.TAC))) {
+            infoWin = 4;
+            infoTeamWin = InfoTeamWin.WIN_TAC;
             return true;
         }
 
-        if (checkInGrid(new Cell(297, 104, 1)) && checkInGrid(new Cell(297, 312, 1)) && checkInGrid(new Cell(297, 525, 1)) && checkInGrid(new Cell(297, 735, 1)) && checkInGrid(new Cell(297, 946, 1))) {
-            arrWin[0] = 5;
-            flagTeamWin = 2;
+        if (checkInGrid(new Cell(2, 1, Cell.State.TAC)) && checkInGrid(new Cell(2, 2, Cell.State.TAC)) && checkInGrid(new Cell(2, 3, Cell.State.TAC)) && checkInGrid(new Cell(2, 4, Cell.State.TAC)) && checkInGrid(new Cell(2, 5, Cell.State.TAC))) {
+            infoWin = 5;
+            infoTeamWin = InfoTeamWin.WIN_TAC;
             return true;
         }
 
-        if (checkInGrid(new Cell(496, 104, 1)) && checkInGrid(new Cell(496, 312, 1)) && checkInGrid(new Cell(496, 525, 1)) && checkInGrid(new Cell(496, 735, 1)) && checkInGrid(new Cell(496, 946, 1))) {
-            arrWin[0] = 6;
-            flagTeamWin = 2;
+        if (checkInGrid(new Cell(3, 1, Cell.State.TAC)) && checkInGrid(new Cell(3, 2, Cell.State.TAC)) && checkInGrid(new Cell(3, 3, Cell.State.TAC)) && checkInGrid(new Cell(3, 4, Cell.State.TAC)) && checkInGrid(new Cell(3, 5, Cell.State.TAC))) {
+            infoWin = 6;
+            infoTeamWin = InfoTeamWin.WIN_TAC;
             return true;
         }
 
-        if (checkInGrid(new Cell(695, 104, 1)) && checkInGrid(new Cell(695, 312, 1)) && checkInGrid(new Cell(695, 525, 1)) && checkInGrid(new Cell(695, 735, 1)) && checkInGrid(new Cell(695, 946, 1))) {
-            arrWin[0] = 61;
-            flagTeamWin = 2;
+        if (checkInGrid(new Cell(4, 1, Cell.State.TAC)) && checkInGrid(new Cell(4, 2, Cell.State.TAC)) && checkInGrid(new Cell(4, 3, Cell.State.TAC)) && checkInGrid(new Cell(4, 4, Cell.State.TAC)) && checkInGrid(new Cell(4, 5, Cell.State.TAC))) {
+            infoWin = 61;
+            infoTeamWin = InfoTeamWin.WIN_TAC;
             return true;
         }
 
-        if (checkInGrid(new Cell(886, 104, 1)) && checkInGrid(new Cell(886, 312, 1)) && checkInGrid(new Cell(886, 525, 1)) && checkInGrid(new Cell(886, 735, 1)) && checkInGrid(new Cell(886, 946, 1))) {
-            arrWin[0] = 62;
-            flagTeamWin = 2;
+        if (checkInGrid(new Cell(5, 1, Cell.State.TAC)) && checkInGrid(new Cell(5, 2, Cell.State.TAC)) && checkInGrid(new Cell(5, 3, Cell.State.TAC)) && checkInGrid(new Cell(5, 4, Cell.State.TAC)) && checkInGrid(new Cell(5, 5, Cell.State.TAC))) {
+            infoWin = 62;
+            infoTeamWin = InfoTeamWin.WIN_TAC;
             return true;
         }
 
         /* Проверка на победу ноликов, диагональный \ ряд */
-        if (checkInGrid(new Cell(102, 104, 1)) && checkInGrid(new Cell(297, 312, 1)) && checkInGrid(new Cell(496, 525, 1)) && checkInGrid(new Cell(695, 735, 1)) && checkInGrid(new Cell(886, 946, 1))) {
-            arrWin[0] = 7;
-            flagTeamWin = 2;
+        if (checkInGrid(new Cell(1, 1, Cell.State.TAC)) && checkInGrid(new Cell(2, 2, Cell.State.TAC)) && checkInGrid(new Cell(3, 3, Cell.State.TAC)) && checkInGrid(new Cell(4, 4, Cell.State.TAC)) && checkInGrid(new Cell(5, 5, Cell.State.TAC))) {
+            infoWin = 7;
+            infoTeamWin = InfoTeamWin.WIN_TAC;
             return true;
         }
 
 
         /* Проверка на победу ноликов, диагональный / ряд */
-        if (checkInGrid(new Cell(886, 104, 1)) && checkInGrid(new Cell(695, 312, 1)) && checkInGrid(new Cell(496, 525, 1)) && checkInGrid(new Cell(297, 735, 1)) && checkInGrid(new Cell(102, 946, 1))) {
-            arrWin[0] = 8;
-            flagTeamWin = 2;
+        if (checkInGrid(new Cell(5, 1, Cell.State.TAC)) && checkInGrid(new Cell(4, 2, Cell.State.TAC)) && checkInGrid(new Cell(3, 3, Cell.State.TAC)) && checkInGrid(new Cell(2, 4, Cell.State.TAC)) && checkInGrid(new Cell(1, 5, Cell.State.TAC))) {
+            infoWin = 8;
+            infoTeamWin = InfoTeamWin.WIN_TAC;
             return true;
         }
+
+
 
         /* Проверка на победу КРЕСТИКОВ, горизонтальный ряд*/
-        if (checkInGrid(new Cell(102, 104, 0)) && checkInGrid(new Cell(297, 104, 0)) && checkInGrid(new Cell(496, 104, 0)) && checkInGrid(new Cell(695, 104, 0)) && checkInGrid(new Cell(886, 104, 0))) {
-            arrWin[0] = 11;
-            flagTeamWin = 1;
+        if (checkInGrid(new Cell(1, 1, Cell.State.TIC)) && checkInGrid(new Cell(2, 1, Cell.State.TIC)) && checkInGrid(new Cell(3, 1, Cell.State.TIC)) && checkInGrid(new Cell(4, 1, Cell.State.TIC)) && checkInGrid(new Cell(5, 1, Cell.State.TIC))) {
+            infoWin = 11;
+            infoTeamWin = InfoTeamWin.WIN_TIC;
             return true;
         }
 
-        if (checkInGrid(new Cell(102, 312, 0)) && checkInGrid(new Cell(297, 312, 0)) && checkInGrid(new Cell(496, 312, 0)) && checkInGrid(new Cell(695, 312, 0)) && checkInGrid(new Cell(886, 312, 0))) {
-            arrWin[0] = 12;
-            flagTeamWin = 1;
+        if (checkInGrid(new Cell(1, 2, Cell.State.TIC)) && checkInGrid(new Cell(2, 2, Cell.State.TIC)) && checkInGrid(new Cell(3, 2, Cell.State.TIC)) && checkInGrid(new Cell(4, 2, Cell.State.TIC)) && checkInGrid(new Cell(5, 2, Cell.State.TIC))) {
+            infoWin = 12;
+            infoTeamWin = InfoTeamWin.WIN_TIC;
             return true;
         }
 
-        if (checkInGrid(new Cell(102, 525, 0)) && checkInGrid(new Cell(297, 525, 0)) && checkInGrid(new Cell(496, 525, 0)) && checkInGrid(new Cell(695, 525, 0)) && checkInGrid(new Cell(886, 525, 0))) {
-            arrWin[0] = 13;
-            flagTeamWin = 1;
+        if (checkInGrid(new Cell(1, 3, Cell.State.TIC)) && checkInGrid(new Cell(2, 3, Cell.State.TIC)) && checkInGrid(new Cell(3, 3, Cell.State.TIC)) && checkInGrid(new Cell(4, 3, Cell.State.TIC)) && checkInGrid(new Cell(5, 3, Cell.State.TIC))) {
+            infoWin = 13;
+            infoTeamWin = InfoTeamWin.WIN_TIC;
             return true;
         }
 
-        if (checkInGrid(new Cell(102, 735, 0)) && checkInGrid(new Cell(297, 735, 0)) && checkInGrid(new Cell(496, 735, 0)) && checkInGrid(new Cell(695, 735, 0)) && checkInGrid(new Cell(886, 735, 0))) {
-            arrWin[0] = 131;
-            flagTeamWin = 1;
+        if (checkInGrid(new Cell(1, 4, Cell.State.TIC)) && checkInGrid(new Cell(2, 4, Cell.State.TIC)) && checkInGrid(new Cell(3, 4, Cell.State.TIC)) && checkInGrid(new Cell(4, 4, Cell.State.TIC)) && checkInGrid(new Cell(5, 4, Cell.State.TIC))) {
+            infoWin = 131;
+            infoTeamWin = InfoTeamWin.WIN_TIC;
             return true;
         }
 
-        if (checkInGrid(new Cell(102, 946, 0)) && checkInGrid(new Cell(297, 946, 0)) && checkInGrid(new Cell(496, 946, 0)) && checkInGrid(new Cell(695, 946, 0)) && checkInGrid(new Cell(886, 946, 0))) {
-            arrWin[0] = 132;
-            flagTeamWin = 1;
+        if (checkInGrid(new Cell(1, 5, Cell.State.TIC)) && checkInGrid(new Cell(2, 5, Cell.State.TIC)) && checkInGrid(new Cell(3, 5, Cell.State.TIC)) && checkInGrid(new Cell(4, 5, Cell.State.TIC)) && checkInGrid(new Cell(5, 5, Cell.State.TIC))) {
+            infoWin = 132;
+            infoTeamWin = InfoTeamWin.WIN_TIC;
             return true;
         }
 
         /* Проверка на победу крестиков, вертикальный ряд*/
-        if (checkInGrid(new Cell(102, 104, 0)) && checkInGrid(new Cell(102, 312, 0)) && checkInGrid(new Cell(102, 525, 0)) && checkInGrid(new Cell(102, 735, 0)) && checkInGrid(new Cell(102, 946, 0))) {
-            arrWin[0] = 14;
-            flagTeamWin = 1;
+        if (checkInGrid(new Cell(1, 1, Cell.State.TIC)) && checkInGrid(new Cell(1, 2, Cell.State.TIC)) && checkInGrid(new Cell(1, 3, Cell.State.TIC)) && checkInGrid(new Cell(1, 4, Cell.State.TIC)) && checkInGrid(new Cell(1, 5, Cell.State.TIC))) {
+            infoWin = 14;
+            infoTeamWin = InfoTeamWin.WIN_TIC;
             return true;
         }
 
-        if (checkInGrid(new Cell(297, 104, 0)) && checkInGrid(new Cell(297, 312, 0)) && checkInGrid(new Cell(297, 525, 0)) && checkInGrid(new Cell(297, 735, 0)) && checkInGrid(new Cell(297, 946, 0))) {
-            arrWin[0] = 15;
-            flagTeamWin = 1;
+        if (checkInGrid(new Cell(2, 1, Cell.State.TIC)) && checkInGrid(new Cell(2, 2, Cell.State.TIC)) && checkInGrid(new Cell(2, 3, Cell.State.TIC)) && checkInGrid(new Cell(2, 4, Cell.State.TIC)) && checkInGrid(new Cell(2, 5, Cell.State.TIC))) {
+            infoWin = 15;
+            infoTeamWin = InfoTeamWin.WIN_TIC;
             return true;
         }
 
-        if (checkInGrid(new Cell(496, 104, 0)) && checkInGrid(new Cell(496, 312, 0)) && checkInGrid(new Cell(496, 525, 0)) && checkInGrid(new Cell(496, 735, 0)) && checkInGrid(new Cell(496, 946, 0))) {
-            arrWin[0] = 16;
-            flagTeamWin = 1;
+        if (checkInGrid(new Cell(3, 1, Cell.State.TIC)) && checkInGrid(new Cell(3, 2, Cell.State.TIC)) && checkInGrid(new Cell(3, 3, Cell.State.TIC)) && checkInGrid(new Cell(3, 4, Cell.State.TIC)) && checkInGrid(new Cell(3, 5, Cell.State.TIC))) {
+            infoWin = 16;
+            infoTeamWin = InfoTeamWin.WIN_TIC;
             return true;
         }
 
-        if (checkInGrid(new Cell(695, 104, 0)) && checkInGrid(new Cell(695, 312, 0)) && checkInGrid(new Cell(695, 525, 0)) && checkInGrid(new Cell(695, 735, 0)) && checkInGrid(new Cell(695, 946, 0))) {
-            arrWin[0] = 161;
-            flagTeamWin = 1;
+        if (checkInGrid(new Cell(4, 1, Cell.State.TIC)) && checkInGrid(new Cell(4, 2, Cell.State.TIC)) && checkInGrid(new Cell(4, 3, Cell.State.TIC)) && checkInGrid(new Cell(4, 4, Cell.State.TIC)) && checkInGrid(new Cell(4, 5, Cell.State.TIC))) {
+            infoWin = 161;
+            infoTeamWin = InfoTeamWin.WIN_TIC;
             return true;
         }
 
-        if (checkInGrid(new Cell(886, 104, 0)) && checkInGrid(new Cell(886, 312, 0)) && checkInGrid(new Cell(886, 525, 0)) && checkInGrid(new Cell(886, 735, 0)) && checkInGrid(new Cell(886, 946, 0))) {
-            arrWin[0] = 162;
-            flagTeamWin = 1;
+        if (checkInGrid(new Cell(5, 1, Cell.State.TIC)) && checkInGrid(new Cell(5, 2, Cell.State.TIC)) && checkInGrid(new Cell(5, 3, Cell.State.TIC)) && checkInGrid(new Cell(5, 4, Cell.State.TIC)) && checkInGrid(new Cell(5, 5, Cell.State.TIC))) {
+            infoWin = 162;
+            infoTeamWin = InfoTeamWin.WIN_TIC;
             return true;
         }
 
         /* Проверка на победу крестиков, диагональный \ ряд */
-        if (checkInGrid(new Cell(102, 104, 0)) && checkInGrid(new Cell(297, 312, 0)) && checkInGrid(new Cell(496, 525, 0)) && checkInGrid(new Cell(695, 735, 0)) && checkInGrid(new Cell(886, 946, 0))) {
-            arrWin[0] = 17;
-            flagTeamWin = 1;
+        if (checkInGrid(new Cell(1, 1, Cell.State.TIC)) && checkInGrid(new Cell(2, 2, Cell.State.TIC)) && checkInGrid(new Cell(3, 3, Cell.State.TIC)) && checkInGrid(new Cell(4, 4, Cell.State.TIC)) && checkInGrid(new Cell(5, 5, Cell.State.TIC))) {
+            infoWin = 17;
+            infoTeamWin = InfoTeamWin.WIN_TIC;
             return true;
         }
 
 
         /* Проверка на победу крестиков, диагональный / ряд */
-        if (checkInGrid(new Cell(886, 104, 0)) && checkInGrid(new Cell(695, 312, 0)) && checkInGrid(new Cell(496, 525, 0)) && checkInGrid(new Cell(297, 735, 0)) && checkInGrid(new Cell(102, 946, 0))) {
-            arrWin[0] = 18;
-            flagTeamWin = 1;
+        if (checkInGrid(new Cell(5, 1, Cell.State.TIC)) && checkInGrid(new Cell(4, 2, Cell.State.TIC)) && checkInGrid(new Cell(3, 3, Cell.State.TIC)) && checkInGrid(new Cell(2, 4, Cell.State.TIC)) && checkInGrid(new Cell(1, 5, Cell.State.TIC))) {
+            infoWin = 18;
+            infoTeamWin = InfoTeamWin.WIN_TIC;
             return true;
         }
-        arrWin[0] = 0;
+        infoWin = 0;
         return false;
     }
 
     boolean checkInGrid(Cell cell) {
         for (int i = 0; i != Logic.cells.size(); i++) {
-            if (Logic.cells.get(i) != null)
-                if (Logic.cells.get(i).equals(cell))
-                    return true;
+            if (Logic.cells.get(i) != null && Logic.cells.get(i).equals(cell))
+                return true;
         }
         return false;
     }
@@ -414,7 +417,7 @@ class Logic {
         return true;
     }
 
-    void setFieldCell(Cell point) {
+    void addFieldCell(Cell point) {
         cells.add(point);
     }
 

@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:gravity="center"
     android:paddingBottom="100dp"
-    tools:context=".MainActivity">
+    tools:context=".ActivityMainMenu">
 
     <TextView
         android:id="@+id/textView"

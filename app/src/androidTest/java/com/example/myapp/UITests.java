@@ -5,7 +5,6 @@ import android.support.test.espresso.action.ViewActions;
 import android.support.test.espresso.assertion.ViewAssertions;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.filters.LargeTest;
-import android.support.test.rule.*;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -19,7 +18,7 @@ import org.junit.runner.RunWith;
 public class UITests {
 
     @Rule
-    public final ActivityTestRule<MainActivity> mainActivityActivityTestRule = new ActivityTestRule<>(MainActivity.class);
+    public final ActivityTestRule<ActivityMainMenu> mainActivityActivityTestRule = new ActivityTestRule<>(ActivityMainMenu.class);
 
     @Test
     public void mainTest(){

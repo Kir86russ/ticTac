@@ -9,7 +9,7 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 
 
-public class MainActivity extends AppCompatActivity {
+public class ActivityMainMenu extends AppCompatActivity {
     private boolean flagOnSwitch;
 
     @Override
@@ -41,10 +41,10 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         if (flagOnSwitch) {
-                            Intent intent3x3_bot = new Intent(getApplicationContext(), Main2Activity_bot.class);
+                            Intent intent3x3_bot = new Intent(getApplicationContext(), Activity3x3vs_bot.class);
                             startActivity(intent3x3_bot);
                         } else {
-                            Intent intent3x3 = new Intent(getApplicationContext(), Main2Activity.class);
+                            Intent intent3x3 = new Intent(getApplicationContext(), Activity3x3.class);
                             startActivity(intent3x3);
                         }
                     }
@@ -56,10 +56,10 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         if (flagOnSwitch) {
-                            Intent intent5x5 = new Intent(getApplicationContext(), Main3Activity_bot.class);
+                            Intent intent5x5 = new Intent(getApplicationContext(), Activity5x5vs_bot.class);
                             startActivity(intent5x5);
                         } else {
-                            Intent intent5x5 = new Intent(getApplicationContext(), Main3Activity.class);
+                            Intent intent5x5 = new Intent(getApplicationContext(), Activity5x5.class);
                             startActivity(intent5x5);
                         }
                     }
@@ -69,4 +69,5 @@ public class MainActivity extends AppCompatActivity {
 
     }
 }
+
 

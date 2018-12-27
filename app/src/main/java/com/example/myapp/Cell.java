@@ -1,24 +1,18 @@
 package com.example.myapp;
 
-
 class Cell {
 
-    private final int kek; // 1 -> nolik, 0 -> krestik
+    enum State {TIC, TAC} // X,O
 
-    private int x;  // эти два поля созданы ИСКЛЮЧИТЕЛЬНО для Unit Test
-    private int y;  // эти два поля созданы ИСКЛЮЧИТЕЛЬНО для Unit Test
+    State state;
+    private int x;
+    private int y;
+
 
     void setX(int x) {
         this.x = x;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Cell cell = (Cell) o;
-        return kek == cell.kek && x == cell.x && y == cell.y;
-    }
 
     void setY(int y) {
         this.y = y;
@@ -34,14 +28,20 @@ class Cell {
         return y;
     }
 
-    int getKek() {
-        return kek;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cell cell = (Cell) o;
+        return x == cell.x &&
+                y == cell.y &&
+                state == cell.state;
     }
 
-    Cell(int x, int y, int kek) { // конструктор создан ИСКЛЮЧИТЕЛЬНО для Unit Test
+    Cell(int x, int y, State state) {
         this.x = x;
         this.y = y;
-        this.kek = kek;
+        this.state = state;
     }
 
 }
