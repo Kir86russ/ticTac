@@ -5,7 +5,6 @@ import android.support.test.espresso.action.ViewActions;
 import android.support.test.espresso.assertion.ViewAssertions;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.filters.LargeTest;
-import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.Assert;
@@ -16,9 +15,6 @@ import org.junit.runner.RunWith;
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 public class UITests {
-
-    @Rule
-    public final ActivityTestRule<ActivityMainMenu> mainActivityActivityTestRule = new ActivityTestRule<>(ActivityMainMenu.class);
 
     @Test
     public void mainTest(){
@@ -40,9 +36,6 @@ public class UITests {
         Espresso.onView(ViewMatchers.withId(R.id.frameLayout))
                 .perform(ViewActions.click());
 
-        Espresso.pressBackUnconditionally();
-        Espresso.pressBackUnconditionally();
-        Assert.assertTrue(mainActivityActivityTestRule.getActivity().isFinishing());
     }
 
 }

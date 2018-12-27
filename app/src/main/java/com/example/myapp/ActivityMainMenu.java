@@ -35,6 +35,17 @@ public class ActivityMainMenu extends AppCompatActivity {
     private void addListenerOnButton() {
         Button button3x3 = findViewById(R.id.play);
         Button button5x5 = findViewById(R.id.play5x5);
+        Button button_rules = findViewById(R.id.button3);
+
+        button_rules.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent_rules = new Intent(getApplicationContext(), ActivityRules.class);
+                        startActivity(intent_rules);
+                    }
+                }
+        );
 
         button3x3.setOnClickListener(
                 new View.OnClickListener() {
